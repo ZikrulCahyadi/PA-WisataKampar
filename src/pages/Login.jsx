@@ -36,10 +36,12 @@ export default function Login() {
     setError('')
     setLoading(true)
 
+    const inputVal = email.trim()
+
     const { data, error } = await supabase
       .from('admin')
       .select('*')
-      .eq('email', email.trim())
+      .or(`email.ilike.${inputVal},email.ilike.${inputVal}@%,nama_admin.ilike.%${inputVal}%`)
       .eq('password', password)
 
     setLoading(false)
@@ -133,12 +135,12 @@ export default function Login() {
 
           <form onSubmit={handleLogin} className="space-y-5">
             <div className="space-y-2">
-              <label className="block text-sm font-semibold text-slate-700">Email Address</label>
+              <label className="block text-sm font-semibold text-slate-700">Email atau Username</label>
               <div className="relative group">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
                 <input
-                  type="email"
-                  placeholder="admin@wisatakampar.com"
+                  type="text"
+                  placeholder="admin atau admin@wisatakampar.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
