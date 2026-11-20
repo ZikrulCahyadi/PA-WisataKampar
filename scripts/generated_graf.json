@@ -1,0 +1,392 @@
+[
+  {
+    "titik_awal": 14,
+    "titik_tujuan": 19,
+    "jarak": 0.6
+  },
+  {
+    "titik_awal": 19,
+    "titik_tujuan": 14,
+    "jarak": 0.6
+  },
+  {
+    "titik_awal": 1,
+    "titik_tujuan": 14,
+    "jarak": 9.1
+  },
+  {
+    "titik_awal": 14,
+    "titik_tujuan": 1,
+    "jarak": 9.1
+  },
+  {
+    "titik_awal": 1,
+    "titik_tujuan": 4,
+    "jarak": 11.4
+  },
+  {
+    "titik_awal": 4,
+    "titik_tujuan": 1,
+    "jarak": 11.4
+  },
+  {
+    "titik_awal": 4,
+    "titik_tujuan": 6,
+    "jarak": 9.2
+  },
+  {
+    "titik_awal": 6,
+    "titik_tujuan": 4,
+    "jarak": 9.2
+  },
+  {
+    "titik_awal": 4,
+    "titik_tujuan": 5,
+    "jarak": 16.1
+  },
+  {
+    "titik_awal": 5,
+    "titik_tujuan": 4,
+    "jarak": 16.1
+  },
+  {
+    "titik_awal": 4,
+    "titik_tujuan": 7,
+    "jarak": 19.5
+  },
+  {
+    "titik_awal": 7,
+    "titik_tujuan": 4,
+    "jarak": 19.5
+  },
+  {
+    "titik_awal": 5,
+    "titik_tujuan": 10,
+    "jarak": 0.1
+  },
+  {
+    "titik_awal": 10,
+    "titik_tujuan": 5,
+    "jarak": 0.1
+  },
+  {
+    "titik_awal": 5,
+    "titik_tujuan": 7,
+    "jarak": 7.2
+  },
+  {
+    "titik_awal": 7,
+    "titik_tujuan": 5,
+    "jarak": 7.2
+  },
+  {
+    "titik_awal": 6,
+    "titik_tujuan": 7,
+    "jarak": 12.3
+  },
+  {
+    "titik_awal": 7,
+    "titik_tujuan": 6,
+    "jarak": 12.3
+  },
+  {
+    "titik_awal": 10,
+    "titik_tujuan": 12,
+    "jarak": 9.4
+  },
+  {
+    "titik_awal": 12,
+    "titik_tujuan": 10,
+    "jarak": 9.4
+  },
+  {
+    "titik_awal": 12,
+    "titik_tujuan": 16,
+    "jarak": 5.2
+  },
+  {
+    "titik_awal": 16,
+    "titik_tujuan": 12,
+    "jarak": 5.2
+  },
+  {
+    "titik_awal": 16,
+    "titik_tujuan": 59,
+    "jarak": 2.1
+  },
+  {
+    "titik_awal": 59,
+    "titik_tujuan": 16,
+    "jarak": 2.1
+  },
+  {
+    "titik_awal": 12,
+    "titik_tujuan": 59,
+    "jarak": 7
+  },
+  {
+    "titik_awal": 59,
+    "titik_tujuan": 12,
+    "jarak": 7
+  },
+  {
+    "titik_awal": 7,
+    "titik_tujuan": 59,
+    "jarak": 20.6
+  },
+  {
+    "titik_awal": 59,
+    "titik_tujuan": 7,
+    "jarak": 20.6
+  },
+  {
+    "titik_awal": 59,
+    "titik_tujuan": 27,
+    "jarak": 20.7
+  },
+  {
+    "titik_awal": 27,
+    "titik_tujuan": 59,
+    "jarak": 20.7
+  },
+  {
+    "titik_awal": 59,
+    "titik_tujuan": 15,
+    "jarak": 18.1
+  },
+  {
+    "titik_awal": 15,
+    "titik_tujuan": 59,
+    "jarak": 18.1
+  },
+  {
+    "titik_awal": 16,
+    "titik_tujuan": 27,
+    "jarak": 18.9
+  },
+  {
+    "titik_awal": 27,
+    "titik_tujuan": 16,
+    "jarak": 18.9
+  },
+  {
+    "titik_awal": 27,
+    "titik_tujuan": 15,
+    "jarak": 4.5
+  },
+  {
+    "titik_awal": 15,
+    "titik_tujuan": 27,
+    "jarak": 4.5
+  },
+  {
+    "titik_awal": 15,
+    "titik_tujuan": 18,
+    "jarak": 14.2
+  },
+  {
+    "titik_awal": 18,
+    "titik_tujuan": 15,
+    "jarak": 14.2
+  },
+  {
+    "titik_awal": 18,
+    "titik_tujuan": 17,
+    "jarak": 8
+  },
+  {
+    "titik_awal": 17,
+    "titik_tujuan": 18,
+    "jarak": 8
+  },
+  {
+    "titik_awal": 17,
+    "titik_tujuan": 47,
+    "jarak": 1.6
+  },
+  {
+    "titik_awal": 47,
+    "titik_tujuan": 17,
+    "jarak": 1.6
+  },
+  {
+    "titik_awal": 18,
+    "titik_tujuan": 47,
+    "jarak": 8.6
+  },
+  {
+    "titik_awal": 47,
+    "titik_tujuan": 18,
+    "jarak": 8.6
+  },
+  {
+    "titik_awal": 17,
+    "titik_tujuan": 32,
+    "jarak": 5.4
+  },
+  {
+    "titik_awal": 32,
+    "titik_tujuan": 17,
+    "jarak": 5.4
+  },
+  {
+    "titik_awal": 47,
+    "titik_tujuan": 32,
+    "jarak": 4.3
+  },
+  {
+    "titik_awal": 32,
+    "titik_tujuan": 47,
+    "jarak": 4.3
+  },
+  {
+    "titik_awal": 47,
+    "titik_tujuan": 46,
+    "jarak": 13.1
+  },
+  {
+    "titik_awal": 46,
+    "titik_tujuan": 47,
+    "jarak": 13.1
+  },
+  {
+    "titik_awal": 32,
+    "titik_tujuan": 46,
+    "jarak": 10.3
+  },
+  {
+    "titik_awal": 46,
+    "titik_tujuan": 32,
+    "jarak": 10.3
+  },
+  {
+    "titik_awal": 46,
+    "titik_tujuan": 30,
+    "jarak": 4.2
+  },
+  {
+    "titik_awal": 30,
+    "titik_tujuan": 46,
+    "jarak": 4.2
+  },
+  {
+    "titik_awal": 46,
+    "titik_tujuan": 29,
+    "jarak": 16.7
+  },
+  {
+    "titik_awal": 29,
+    "titik_tujuan": 46,
+    "jarak": 16.7
+  },
+  {
+    "titik_awal": 30,
+    "titik_tujuan": 29,
+    "jarak": 14.2
+  },
+  {
+    "titik_awal": 29,
+    "titik_tujuan": 30,
+    "jarak": 14.2
+  },
+  {
+    "titik_awal": 29,
+    "titik_tujuan": 44,
+    "jarak": 14.2
+  },
+  {
+    "titik_awal": 44,
+    "titik_tujuan": 29,
+    "jarak": 14.2
+  },
+  {
+    "titik_awal": 44,
+    "titik_tujuan": 42,
+    "jarak": 33.4
+  },
+  {
+    "titik_awal": 42,
+    "titik_tujuan": 44,
+    "jarak": 33.4
+  },
+  {
+    "titik_awal": 42,
+    "titik_tujuan": 41,
+    "jarak": 14.3
+  },
+  {
+    "titik_awal": 41,
+    "titik_tujuan": 42,
+    "jarak": 14.3
+  },
+  {
+    "titik_awal": 41,
+    "titik_tujuan": 39,
+    "jarak": 8.7
+  },
+  {
+    "titik_awal": 39,
+    "titik_tujuan": 41,
+    "jarak": 8.7
+  },
+  {
+    "titik_awal": 42,
+    "titik_tujuan": 39,
+    "jarak": 13.8
+  },
+  {
+    "titik_awal": 39,
+    "titik_tujuan": 42,
+    "jarak": 13.8
+  },
+  {
+    "titik_awal": 44,
+    "titik_tujuan": 13,
+    "jarak": 92.6
+  },
+  {
+    "titik_awal": 13,
+    "titik_tujuan": 44,
+    "jarak": 92.6
+  },
+  {
+    "titik_awal": 29,
+    "titik_tujuan": 13,
+    "jarak": 84.1
+  },
+  {
+    "titik_awal": 13,
+    "titik_tujuan": 29,
+    "jarak": 84.1
+  },
+  {
+    "titik_awal": 42,
+    "titik_tujuan": 13,
+    "jarak": 94.1
+  },
+  {
+    "titik_awal": 13,
+    "titik_tujuan": 42,
+    "jarak": 94.1
+  },
+  {
+    "titik_awal": 13,
+    "titik_tujuan": 45,
+    "jarak": 83
+  },
+  {
+    "titik_awal": 45,
+    "titik_tujuan": 13,
+    "jarak": 83
+  },
+  {
+    "titik_awal": 6,
+    "titik_tujuan": 45,
+    "jarak": 97.2
+  },
+  {
+    "titik_awal": 45,
+    "titik_tujuan": 6,
+    "jarak": 97.2
+  }
+]
