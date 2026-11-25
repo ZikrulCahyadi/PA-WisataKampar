@@ -318,7 +318,7 @@ export default function Dashboard() {
                 <Compass className="w-5 h-5 text-indigo-600" />
                 <h3 className="text-base sm:text-lg font-bold font-[Sora] text-slate-900 tracking-tight">Kategori Wisata</h3>
               </div>
-              <p className="text-slate-500 text-xs mt-0.5">3 Kategori Objek Wisata Skripsi</p>
+              <p className="text-slate-500 text-xs mt-0.5">3 Kategori Objek Wisata</p>
             </div>
             <button 
               onClick={() => navigate('/wisata')}
