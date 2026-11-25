@@ -385,36 +385,39 @@ export default function Dashboard() {
             return (
               <div className="flex flex-col sm:flex-row items-center justify-between gap-5 my-auto py-2">
                 <div className="relative w-40 h-40 shrink-0">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={hasData ? donutData : [{ name: 'Kosong', count: 1, color: '#e2e8f0' }]}
-                        dataKey="count"
-                        nameKey="name"
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={48}
-                        outerRadius={74}
-                        startAngle={90}
-                        endAngle={-270}
-                        stroke="none"
-                        isAnimationActive={false}
-                      >
-                        {(hasData ? donutData : [{ color: '#e2e8f0' }]).map((entry, idx) => (
-                          <Cell key={idx} fill={entry.color} />
-                        ))}
-                      </Pie>
-                      {hasData && (
-                        <Tooltip
-                          formatter={(val, name) => [`${val} Destinasi`, name]}
-                          contentStyle={{ borderRadius: '10px', border: '1px solid #e2e8f0', fontSize: '12px' }}
-                        />
-                      )}
-                    </PieChart>
-                  </ResponsiveContainer>
-                  <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                  <div className="absolute inset-0 z-0 flex flex-col items-center justify-center pointer-events-none">
                     <span className="text-2xl font-bold font-[Sora] text-slate-900 leading-none">{stats.wisata}</span>
                     <span className="text-[11px] font-medium text-slate-500 mt-1">Total</span>
+                  </div>
+                  <div className="relative z-10 w-full h-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie
+                          data={hasData ? donutData : [{ name: 'Kosong', count: 1, color: '#e2e8f0' }]}
+                          dataKey="count"
+                          nameKey="name"
+                          cx="50%"
+                          cy="50%"
+                          innerRadius={48}
+                          outerRadius={74}
+                          startAngle={90}
+                          endAngle={-270}
+                          stroke="none"
+                          isAnimationActive={false}
+                        >
+                          {(hasData ? donutData : [{ color: '#e2e8f0' }]).map((entry, idx) => (
+                            <Cell key={idx} fill={entry.color} />
+                          ))}
+                        </Pie>
+                        {hasData && (
+                          <Tooltip
+                            formatter={(val, name) => [`${val} Destinasi`, name]}
+                            wrapperStyle={{ zIndex: 30 }}
+                            contentStyle={{ borderRadius: '10px', border: '1px solid #e2e8f0', fontSize: '12px', backgroundColor: '#ffffff' }}
+                          />
+                        )}
+                      </PieChart>
+                    </ResponsiveContainer>
                   </div>
                 </div>
 
