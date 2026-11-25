@@ -153,9 +153,9 @@ export default function Dashboard() {
       sublabel: 'Akun terdaftar',
       value: stats.wisatawan, 
       icon: Users, 
-      ringBg: 'bg-amber-50/90',
-      circleBg: 'bg-amber-500 shadow-amber-500/25',
-      sparkColor: '#d97706',
+      ringBg: 'bg-cyan-50/90',
+      circleBg: 'bg-cyan-500 shadow-cyan-500/25',
+      sparkColor: '#06b6d4',
       path: '/wisatawan'
     },
     { 
@@ -163,9 +163,9 @@ export default function Dashboard() {
       sublabel: 'Rating & komentar',
       value: stats.review, 
       icon: Star, 
-      ringBg: 'bg-rose-50/90',
-      circleBg: 'bg-rose-500 shadow-rose-500/25',
-      sparkColor: '#e11d48',
+      ringBg: 'bg-amber-50/90',
+      circleBg: 'bg-amber-400 shadow-amber-400/25',
+      sparkColor: '#f59e0b',
       path: '/review'
     },
   ]
@@ -280,24 +280,24 @@ export default function Dashboard() {
 
               {/* Subtle Decorative Sparkline */}
               <svg
-                viewBox="0 0 64 28"
-                className="w-12 sm:w-14 h-7 shrink-0 self-end opacity-65 pointer-events-none hidden xs:block"
+                viewBox="0 0 72 32"
+                className="w-14 sm:w-16 h-8 absolute bottom-1 right-1.5 opacity-80 pointer-events-none"
                 fill="none"
               >
                 <defs>
                   <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor={s.sparkColor} stopOpacity="0.28" />
+                    <stop offset="0%" stopColor={s.sparkColor} stopOpacity="0.32" />
                     <stop offset="100%" stopColor={s.sparkColor} stopOpacity="0" />
                   </linearGradient>
                 </defs>
                 <path
-                  d="M2,24 C10,22 14,15 22,17 C30,19 34,9 42,12 C48,14 54,5 62,4 L62,28 L2,28 Z"
+                  d="M2,27 C10,24 15,17 24,19 C32,21 38,10 47,13 C55,15 61,6 70,4 L70,32 L2,32 Z"
                   fill={`url(#${gradId})`}
                 />
                 <path
-                  d="M2,24 C10,22 14,15 22,17 C30,19 34,9 42,12 C48,14 54,5 62,4"
+                  d="M2,27 C10,24 15,17 24,19 C32,21 38,10 47,13 C55,15 61,6 70,4"
                   stroke={s.sparkColor}
-                  strokeWidth="1.8"
+                  strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
