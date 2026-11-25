@@ -107,11 +107,11 @@ export default function Wisatawan() {
     <div className="flex flex-col gap-6">
       
       {/* Page Header */}
-      <div className="bg-gradient-to-r from-[#0e1a3a] via-[#142857] to-[#1d4ed8] rounded-2xl p-5 sm:p-6 text-white shadow-md shadow-blue-950/15">
-        <h1 className="text-xl sm:text-2xl font-bold font-[Sora] tracking-tight text-white">
+      <div>
+        <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
           Data Wisatawan
         </h1>
-        <p className="text-xs sm:text-sm text-blue-100/85 mt-1">
+        <p className="text-xs sm:text-sm text-slate-500 mt-1">
           Daftar pengguna terdaftar pada aplikasi mobile Wisata Kampar.
         </p>
       </div>
@@ -134,7 +134,7 @@ export default function Wisatawan() {
 
       {/* Table Section */}
       <div className="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden flex flex-col">
-        <div className="p-4 sm:p-5 border-b border-blue-200/70 flex flex-col sm:flex-row justify-between items-center gap-4 bg-gradient-to-r from-blue-100/75 via-indigo-50/70 to-slate-50">
+        <div className="p-4 sm:p-5 border-b border-slate-200/80 flex flex-col sm:flex-row justify-between items-center gap-4 bg-gradient-to-r from-blue-50/75 via-slate-50/60 to-white">
           <div className="flex items-center gap-2 shrink-0">
             <h2 className="text-base sm:text-lg font-bold font-[Sora] text-slate-900 whitespace-nowrap">Daftar Akun Wisatawan</h2>
             <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100/70 text-blue-800 whitespace-nowrap shrink-0">
@@ -199,7 +199,7 @@ export default function Wisatawan() {
             <div className="hidden md:block overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="bg-slate-100/90 border-b border-slate-200">
+                  <tr className="bg-slate-50/80 border-b border-slate-200/80">
                     <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider w-16 text-center">No</th>
                     <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Nama Wisatawan</th>
                     <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Email Akun</th>

@@ -138,11 +138,11 @@ export default function WisataFasilitas() {
     <div className="flex flex-col gap-6">
       
       {/* Page Header */}
-      <div className="bg-gradient-to-r from-[#0e1a3a] via-[#142857] to-[#1d4ed8] rounded-2xl p-5 sm:p-6 text-white shadow-md shadow-blue-950/15">
-        <h1 className="text-xl sm:text-2xl font-bold font-[Sora] tracking-tight text-white">
+      <div>
+        <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
           Wisata - Fasilitas
         </h1>
-        <p className="text-xs sm:text-sm text-blue-100/85 mt-1">
+        <p className="text-sm text-slate-500 mt-1">
           Hubungkan ketersediaan fasilitas pada setiap destinasi wisata Kabupaten Kampar.
         </p>
       </div>

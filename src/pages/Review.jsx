@@ -86,11 +86,11 @@ export default function Review() {
     <div className="flex flex-col gap-6">
       
       {/* Page Header */}
-      <div className="bg-gradient-to-r from-[#0e1a3a] via-[#142857] to-[#1d4ed8] rounded-2xl p-5 sm:p-6 text-white shadow-md shadow-blue-950/15">
-        <h1 className="text-xl sm:text-2xl font-bold font-[Sora] tracking-tight text-white">
+      <div>
+        <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
           Kelola Review Wisata
         </h1>
-        <p className="text-xs sm:text-sm text-blue-100/85 mt-1">
+        <p className="text-xs sm:text-sm text-slate-500 mt-1">
           Pantau feedback pengunjung, rating destinasi wisata, serta komentar wisatawan.
         </p>
       </div>
@@ -136,7 +136,7 @@ export default function Review() {
 
       {/* Table Section */}
       <div className="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden flex flex-col">
-        <div className="p-4 sm:p-5 border-b border-blue-200/70 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-gradient-to-r from-blue-100/75 via-indigo-50/70 to-slate-50">
+        <div className="p-4 sm:p-5 border-b border-slate-200/80 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-gradient-to-r from-blue-50/75 via-slate-50/60 to-white">
           <div className="flex flex-wrap items-center gap-2">
             <h2 className="text-base sm:text-lg font-bold font-[Sora] text-slate-900 mr-1 whitespace-nowrap">Daftar Review</h2>
             <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100/70 text-amber-800 mr-2 whitespace-nowrap shrink-0">

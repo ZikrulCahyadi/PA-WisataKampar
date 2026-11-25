@@ -422,12 +422,12 @@ export default function Graf() {
     <div className="flex flex-col gap-6">
       
       {/* Page Header */}
-      <div className="bg-gradient-to-r from-[#0e1a3a] via-[#142857] to-[#1d4ed8] rounded-2xl p-5 sm:p-6 text-white shadow-md shadow-blue-950/15 flex flex-col xl:flex-row justify-between items-start xl:items-center gap-3.5 xl:gap-4">
+      <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-3.5 xl:gap-4">
         <div className="min-w-0">
-          <h1 className="text-xl sm:text-2xl font-bold font-[Sora] tracking-tight text-white">
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
             Kelola Jalur Graf
           </h1>
-          <p className="text-xs sm:text-sm text-blue-100/85 mt-1">
+          <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Konfigurasi simpul rute dan jarak tempuh (km) antar destinasi wisata untuk Algoritma Dijkstra.
           </p>
         </div>
@@ -438,8 +438,8 @@ export default function Graf() {
             onClick={() => setShowMap(!showMap)}
             className={`flex-1 sm:flex-initial whitespace-nowrap flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl font-medium text-xs sm:text-sm transition-colors border shadow-2xs ${
               showMap
-                ? 'bg-indigo-100 text-indigo-800 border-indigo-200'
-                : 'bg-white/15 hover:bg-white/25 text-white border-white/25 backdrop-blur-xs'
+                ? 'bg-indigo-50 text-indigo-700 border-indigo-300'
+                : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
             }`}
           >
             <MapIcon className="w-4 h-4 shrink-0" />
@@ -449,7 +449,7 @@ export default function Graf() {
           <button
             type="button"
             onClick={() => setAutoConnectModal({ isOpen: true, wisataId: '' })}
-            className="flex-1 sm:flex-initial whitespace-nowrap flex items-center justify-center gap-1.5 bg-emerald-500 hover:bg-emerald-600 text-white px-3.5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-colors shadow-sm"
+            className="flex-1 sm:flex-initial whitespace-nowrap flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2.5 rounded-xl font-medium text-xs sm:text-sm transition-colors shadow-xs"
           >
             <Zap className="w-4 h-4 shrink-0" />
             <span>Hubungkan Otomatis</span>
@@ -458,7 +458,7 @@ export default function Graf() {
           {!showForm && (
             <button 
               onClick={() => { setShowForm(true); setEditData(null); setForm(emptyForm); setFormError('') }}
-              className="w-full sm:w-auto whitespace-nowrap flex items-center justify-center gap-1.5 bg-white hover:bg-blue-50 text-blue-700 px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-colors shadow-sm shrink-0"
+              className="w-full sm:w-auto whitespace-nowrap flex items-center justify-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl font-medium text-xs sm:text-sm transition-colors shadow-xs shrink-0"
             >
               <Plus className="w-4 h-4 shrink-0" />
               <span>Tambah Jalur Graf</span>
@@ -690,7 +690,7 @@ export default function Graf() {
 
       {/* Table Section */}
       <div className="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden flex flex-col">
-        <div className="p-4 sm:p-5 border-b border-blue-200/70 flex flex-col lg:flex-row justify-between items-stretch lg:items-center gap-3 sm:gap-4 bg-gradient-to-r from-blue-100/75 via-indigo-50/70 to-slate-50">
+        <div className="p-4 sm:p-5 border-b border-slate-200/80 flex flex-col lg:flex-row justify-between items-stretch lg:items-center gap-3 sm:gap-4 bg-gradient-to-r from-blue-50/75 via-slate-50/60 to-white">
           <div className="flex items-center gap-2 shrink-0">
             <h2 className="text-base sm:text-lg font-bold font-[Sora] text-slate-900 whitespace-nowrap">Daftar Jalur Graf</h2>
             <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-100/70 text-indigo-800 whitespace-nowrap shrink-0">
