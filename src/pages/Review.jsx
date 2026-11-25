@@ -135,8 +135,8 @@ export default function Review() {
       </div>
 
       {/* Table Section */}
-      <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden flex flex-col">
-        <div className="p-4 sm:p-5 border-b border-slate-200/80 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-50/70">
+      <div className="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden flex flex-col">
+        <div className="p-4 sm:p-5 border-b border-slate-200/80 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-gradient-to-r from-blue-50/75 via-slate-50/60 to-white">
           <div className="flex flex-wrap items-center gap-2">
             <h2 className="text-base sm:text-lg font-bold font-[Sora] text-slate-900 mr-1 whitespace-nowrap">Daftar Review</h2>
             <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100/70 text-amber-800 mr-2 whitespace-nowrap shrink-0">

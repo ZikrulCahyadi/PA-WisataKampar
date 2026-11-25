@@ -679,8 +679,8 @@ export default function Wisata() {
       </div>
 
       {/* Table Section */}
-      <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden flex flex-col">
-        <div className="p-4 sm:p-5 border-b border-slate-200/80 flex flex-col sm:flex-row justify-between items-center gap-4 bg-slate-50/70">
+      <div className="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden flex flex-col">
+        <div className="p-4 sm:p-5 border-b border-slate-200/80 flex flex-col sm:flex-row justify-between items-center gap-4 bg-gradient-to-r from-blue-50/75 via-slate-50/60 to-white">
           <div className="flex items-center gap-2 shrink-0">
             <h2 className="text-base sm:text-lg font-bold font-[Sora] text-slate-900 whitespace-nowrap">Daftar Wisata</h2>
             <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100/70 text-blue-700 whitespace-nowrap shrink-0">

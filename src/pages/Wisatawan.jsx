@@ -118,21 +118,23 @@ export default function Wisatawan() {
 
       {/* Stats Card */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs flex items-center justify-between gap-4">
+        <div className="bg-gradient-to-br from-white to-blue-50/60 rounded-2xl p-5 border border-blue-200/60 shadow-sm flex items-center justify-between gap-4">
           <div>
             <span className="text-xs font-medium text-slate-500 block mb-1">Total Wisatawan</span>
-            <p className="text-2xl font-bold text-slate-900 tracking-tight">{wisatawanList.length}</p>
+            <p className="text-2xl font-extrabold font-[Sora] text-slate-900 tracking-tight">{wisatawanList.length}</p>
             <p className="text-xs text-slate-400 mt-0.5">Akun terdaftar</p>
           </div>
-          <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center shrink-0">
-            <Users className="w-6 h-6" />
+          <div className="p-1.5 rounded-full bg-blue-100/70 shrink-0">
+            <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-md shadow-blue-600/25">
+              <Users className="w-5 h-5" />
+            </div>
           </div>
         </div>
       </div>
 
       {/* Table Section */}
-      <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden flex flex-col">
-        <div className="p-4 sm:p-5 border-b border-slate-200/80 flex flex-col sm:flex-row justify-between items-center gap-4 bg-slate-50/70">
+      <div className="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden flex flex-col">
+        <div className="p-4 sm:p-5 border-b border-slate-200/80 flex flex-col sm:flex-row justify-between items-center gap-4 bg-gradient-to-r from-blue-50/75 via-slate-50/60 to-white">
           <div className="flex items-center gap-2 shrink-0">
             <h2 className="text-base sm:text-lg font-bold font-[Sora] text-slate-900 whitespace-nowrap">Daftar Akun Wisatawan</h2>
             <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100/70 text-blue-800 whitespace-nowrap shrink-0">

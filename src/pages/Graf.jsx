@@ -689,8 +689,8 @@ export default function Graf() {
       )}
 
       {/* Table Section */}
-      <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden flex flex-col">
-        <div className="p-4 sm:p-5 border-b border-slate-200/80 flex flex-col lg:flex-row justify-between items-stretch lg:items-center gap-3 sm:gap-4 bg-slate-50/70">
+      <div className="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden flex flex-col">
+        <div className="p-4 sm:p-5 border-b border-slate-200/80 flex flex-col lg:flex-row justify-between items-stretch lg:items-center gap-3 sm:gap-4 bg-gradient-to-r from-blue-50/75 via-slate-50/60 to-white">
           <div className="flex items-center gap-2 shrink-0">
             <h2 className="text-base sm:text-lg font-bold font-[Sora] text-slate-900 whitespace-nowrap">Daftar Jalur Graf</h2>
             <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-100/70 text-indigo-800 whitespace-nowrap shrink-0">
