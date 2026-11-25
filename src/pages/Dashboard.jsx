@@ -123,7 +123,9 @@ export default function Dashboard() {
       sublabel: 'Destinasi terdaftar',
       value: stats.wisata, 
       icon: MapPin, 
-      iconBg: 'bg-blue-50 text-blue-600 border border-blue-100',
+      ringBg: 'bg-blue-50/90',
+      circleBg: 'bg-blue-600 shadow-blue-600/25',
+      sparkColor: '#2563eb',
       path: '/wisata'
     },
     { 
@@ -131,7 +133,9 @@ export default function Dashboard() {
       sublabel: 'Rute Dijkstra',
       value: stats.graf, 
       icon: Route, 
-      iconBg: 'bg-indigo-50 text-indigo-600 border border-indigo-100',
+      ringBg: 'bg-violet-50/90',
+      circleBg: 'bg-violet-600 shadow-violet-600/25',
+      sparkColor: '#7c3aed',
       path: '/graf'
     },
     { 
@@ -139,7 +143,9 @@ export default function Dashboard() {
       sublabel: 'Fasilitas aktif',
       value: stats.fasilitas, 
       icon: Building, 
-      iconBg: 'bg-emerald-50 text-emerald-600 border border-emerald-100',
+      ringBg: 'bg-emerald-50/90',
+      circleBg: 'bg-emerald-600 shadow-emerald-600/25',
+      sparkColor: '#059669',
       path: '/fasilitas'
     },
     { 
@@ -147,7 +153,9 @@ export default function Dashboard() {
       sublabel: 'Akun terdaftar',
       value: stats.wisatawan, 
       icon: Users, 
-      iconBg: 'bg-cyan-50 text-cyan-600 border border-cyan-100',
+      ringBg: 'bg-amber-50/90',
+      circleBg: 'bg-amber-500 shadow-amber-500/25',
+      sparkColor: '#d97706',
       path: '/wisatawan'
     },
     { 
@@ -155,7 +163,9 @@ export default function Dashboard() {
       sublabel: 'Rating & komentar',
       value: stats.review, 
       icon: Star, 
-      iconBg: 'bg-amber-50 text-amber-600 border border-amber-100',
+      ringBg: 'bg-rose-50/90',
+      circleBg: 'bg-rose-500 shadow-rose-500/25',
+      sparkColor: '#e11d48',
       path: '/review'
     },
   ]
@@ -204,15 +214,21 @@ export default function Dashboard() {
     <div className="flex flex-col gap-6 pb-10">
       
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 sm:gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Dashboard Overview</h1>
-          <p className="text-xs sm:text-sm text-slate-500 mt-1">
-            Selamat datang kembali, <strong className="text-slate-800 font-semibold">{admin?.nama_admin || 'Admin'}</strong>. Ringkasan sistem informasi pariwisata Kabupaten Kampar.
-          </p>
+          <p className="text-xs sm:text-sm font-semibold text-slate-600">Selamat Datang di</p>
+          <h1 className="text-2xl sm:text-3xl font-extrabold font-[Sora] text-slate-900 tracking-tight mt-0.5">
+            Wisata Kampar
+          </h1>
+          <div className="flex items-center gap-2.5 mt-1.5">
+            <span className="w-7 h-1 rounded-full bg-blue-600 shrink-0" />
+            <p className="text-xs sm:text-sm text-slate-500">
+              Kelola data dan pantau informasi pariwisata Kabupaten Kampar dengan mudah.
+            </p>
+          </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 shrink-0">
           <div className="hidden sm:flex items-center gap-2 text-xs font-medium text-slate-600 bg-white border border-slate-200/90 px-3.5 py-2 rounded-xl shadow-2xs">
             <Calendar className="w-3.5 h-3.5 text-slate-400" />
             <span>{todayStr}</span>
@@ -232,31 +248,60 @@ export default function Dashboard() {
         {statCards.map((s, idx) => {
           const Icon = s.icon;
           const isLastOdd = idx === statCards.length - 1;
+          const gradId = `spark-${idx}`;
           return (
             <div 
               key={s.label} 
               onClick={() => navigate(s.path)}
-              className={`bg-white rounded-2xl p-3.5 sm:p-5 border border-slate-200/80 shadow-xs flex items-center justify-between gap-2.5 sm:gap-3 hover:border-blue-400 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group ${isLastOdd ? 'col-span-2 sm:col-span-1' : ''}`}
+              className={`relative overflow-hidden bg-white rounded-2xl p-3.5 sm:p-4 border border-slate-200/80 shadow-xs flex items-center gap-3 hover:border-blue-400 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group ${isLastOdd ? 'col-span-2 sm:col-span-1' : ''}`}
               title={`Buka ${s.label}`}
             >
-              <div className="min-w-0 flex-1">
-                <span className="text-xs font-medium text-slate-500 block mb-1 group-hover:text-blue-600 transition-colors truncate">
+              <div className={`p-1.5 rounded-full shrink-0 ${s.ringBg} group-hover:scale-105 transition-transform`}>
+                <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-white shadow-md ${s.circleBg}`}>
+                  <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
+                </div>
+              </div>
+
+              <div className="min-w-0 flex-1 relative z-10">
+                <span className="text-[11px] sm:text-xs font-medium text-slate-500 block group-hover:text-blue-600 transition-colors truncate">
                   {s.label}
                 </span>
                 {loading ? (
-                  <div className="h-7 w-16 bg-slate-100 animate-pulse rounded my-1"></div>
+                  <div className="h-7 w-14 bg-slate-100 animate-pulse rounded my-1"></div>
                 ) : (
-                  <p className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+                  <p className="text-xl sm:text-2xl font-extrabold font-[Sora] text-slate-900 tracking-tight leading-tight my-0.5">
                     {s.value}
                   </p>
                 )}
-                <p className="text-[11px] sm:text-xs text-slate-400 mt-0.5 truncate hidden xs:block">
+                <p className="text-[10px] sm:text-[11px] text-slate-400 truncate">
                   {s.sublabel}
                 </p>
               </div>
-              <div className={`w-9 h-9 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center shrink-0 ${s.iconBg} group-hover:scale-105 transition-transform`}>
-                <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
-              </div>
+
+              {/* Subtle Decorative Sparkline */}
+              <svg
+                viewBox="0 0 64 28"
+                className="w-12 sm:w-14 h-7 shrink-0 self-end opacity-65 pointer-events-none hidden xs:block"
+                fill="none"
+              >
+                <defs>
+                  <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor={s.sparkColor} stopOpacity="0.28" />
+                    <stop offset="100%" stopColor={s.sparkColor} stopOpacity="0" />
+                  </linearGradient>
+                </defs>
+                <path
+                  d="M2,24 C10,22 14,15 22,17 C30,19 34,9 42,12 C48,14 54,5 62,4 L62,28 L2,28 Z"
+                  fill={`url(#${gradId})`}
+                />
+                <path
+                  d="M2,24 C10,22 14,15 22,17 C30,19 34,9 42,12 C48,14 54,5 62,4"
+                  stroke={s.sparkColor}
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </div>
           );
         })}
