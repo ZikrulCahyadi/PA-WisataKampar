@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import { X, Check, MapPin, Navigation, ZoomIn, ZoomOut } from 'lucide-react'
+import { X, Check, MapPin, Navigation, Search, Loader2 } from 'lucide-react'
 
 // Custom DivIcon agar tidak ada masalah asset path Leaflet di Vite
 const customMarkerIcon = L.divIcon({
@@ -36,12 +36,19 @@ export default function MapPickerModal({ isOpen, onClose, onSelect, initialLat, 
     lng: initialLng ? Number(initialLng) : DEFAULT_LNG
   })
   const [gettingLocation, setGettingLocation] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [searching, setSearching] = useState(false)
+  const [searchResults, setSearchResults] = useState([])
+  const [searchError, setSearchError] = useState('')
 
   useEffect(() => {
     if (isOpen) {
       const validLat = initialLat && !isNaN(Number(initialLat)) ? Number(initialLat) : DEFAULT_LAT
       const validLng = initialLng && !isNaN(Number(initialLng)) ? Number(initialLng) : DEFAULT_LNG
       setPosition({ lat: validLat, lng: validLng })
+      setSearchQuery('')
+      setSearchResults([])
+      setSearchError('')
     }
   }, [isOpen, initialLat, initialLng])
 
@@ -167,6 +174,52 @@ export default function MapPickerModal({ isOpen, onClose, onSelect, initialLat, 
     )
   }
 
+  const handleSearchLocation = async () => {
+    const q = searchQuery.trim()
+    if (!q) return
+
+    setSearching(true)
+    setSearchError('')
+    setSearchResults([])
+
+    try {
+      const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}&countrycodes=id&limit=5`
+      const res = await fetch(url, {
+        headers: { 'Accept-Language': 'id' }
+      })
+      const data = await res.json()
+
+      if (!data || data.length === 0) {
+        setSearchError('Lokasi tidak ditemukan. Coba tambah kata "Kampar" atau "Riau".')
+      } else {
+        setSearchResults(data)
+      }
+    } catch (err) {
+      setSearchError('Gagal mencari lokasi. Periksa koneksi internet Anda.')
+    } finally {
+      setSearching(false)
+    }
+  }
+
+  const handleSelectSearchResult = (item) => {
+    const lat = Number(Number(item.lat).toFixed(6))
+    const lng = Number(Number(item.lon).toFixed(6))
+    setPosition({ lat, lng })
+    setSearchResults([])
+    setSearchError('')
+
+    if (mapInstanceRef.current && markerRef.current) {
+      mapInstanceRef.current.flyTo([lat, lng], 15, { duration: 1.2 })
+      markerRef.current.setLatLng([lat, lng])
+      markerRef.current.setPopupContent(`
+        <div style="font-family: inherit; font-size: 12px; text-align: center; padding: 2px; max-width: 220px;">
+          <b style="color: #1e293b;">${item.display_name.split(',')[0]}</b><br/>
+          <span style="color: #64748b; font-family: monospace;">${lat}, ${lng}</span>
+        </div>
+      `).openPopup()
+    }
+  }
+
   const handleConfirm = () => {
     onSelect({
       latitude: position.lat,
@@ -212,13 +265,83 @@ export default function MapPickerModal({ isOpen, onClose, onSelect, initialLat, 
         <div className="relative flex-1 w-full bg-slate-100 min-h-[300px]">
           <div ref={mapContainerRef} className="absolute inset-0 w-full h-full z-10" />
 
-          {/* Quick Floating Map Controls */}
-          <div className="absolute top-3 right-3 z-20 flex flex-col gap-2">
+          {/* Search Bar & Quick Floating Map Controls */}
+          <div className="absolute top-3 left-3 right-3 z-20 flex flex-col sm:flex-row items-stretch sm:items-start justify-between gap-2 pointer-events-none">
+            {/* Search Box */}
+            <div className="relative w-full sm:max-w-xs pointer-events-auto">
+              <div className="flex items-center bg-white/95 backdrop-blur-sm border border-slate-200/90 rounded-xl shadow-md overflow-hidden">
+                <Search className="w-4 h-4 text-slate-400 ml-3 shrink-0" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value)
+                    if (searchError) setSearchError('')
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault()
+                      handleSearchLocation()
+                    }
+                  }}
+                  placeholder="Cari desa, kecamatan, wisata..."
+                  className="w-full px-2.5 py-2 text-xs text-slate-800 bg-transparent outline-none placeholder:text-slate-400"
+                />
+                {searchQuery && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSearchQuery('')
+                      setSearchResults([])
+                      setSearchError('')
+                    }}
+                    className="p-1 text-slate-400 hover:text-slate-600"
+                    title="Bersihkan pencarian"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={handleSearchLocation}
+                  disabled={searching || !searchQuery.trim()}
+                  className="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition-colors disabled:opacity-50 shrink-0 flex items-center gap-1"
+                >
+                  {searching ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : 'Cari'}
+                </button>
+              </div>
+
+              {searchError && (
+                <div className="mt-1.5 px-3 py-2 bg-red-50/95 border border-red-200 text-red-700 rounded-xl shadow-md text-[11px] font-medium backdrop-blur-sm">
+                  {searchError}
+                </div>
+              )}
+
+              {searchResults.length > 0 && (
+                <div className="mt-1.5 bg-white/95 backdrop-blur-sm border border-slate-200 rounded-xl shadow-lg overflow-hidden max-h-48 overflow-y-auto divide-y divide-slate-100">
+                  {searchResults.map((item) => (
+                    <button
+                      key={item.place_id}
+                      type="button"
+                      onClick={() => handleSelectSearchResult(item)}
+                      className="w-full text-left px-3 py-2 hover:bg-blue-50/80 transition-colors flex items-start gap-2"
+                    >
+                      <MapPin className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
+                      <span className="text-[11px] text-slate-700 leading-snug line-clamp-2">
+                        {item.display_name}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* My Location Button */}
             <button
               type="button"
               onClick={handleGetCurrentLocation}
               disabled={gettingLocation}
-              className="flex items-center gap-1.5 px-3 py-2 bg-white/95 hover:bg-white text-blue-600 border border-slate-200/90 rounded-xl shadow-md text-xs font-semibold backdrop-blur-sm transition-all disabled:opacity-50"
+              className="self-end sm:self-auto pointer-events-auto flex items-center gap-1.5 px-3 py-2 bg-white/95 hover:bg-white text-blue-600 border border-slate-200/90 rounded-xl shadow-md text-xs font-semibold backdrop-blur-sm transition-all disabled:opacity-50 shrink-0"
               title="Arahkan peta ke posisi GPS Anda saat ini"
             >
               <Navigation className={`w-3.5 h-3.5 ${gettingLocation ? 'animate-spin' : ''}`} />
@@ -226,7 +349,7 @@ export default function MapPickerModal({ isOpen, onClose, onSelect, initialLat, 
             </button>
           </div>
 
-          <div className="absolute bottom-3 left-3 z-20 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-xl border border-slate-200 shadow-sm text-[11px] text-slate-600 flex items-center gap-1.5">
+          <div className="hidden sm:flex absolute bottom-3 left-3 z-20 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-xl border border-slate-200 shadow-sm text-[11px] text-slate-600 items-center gap-1.5">
             <span className="font-bold text-blue-700">Petunjuk:</span>
             <span>Klik area peta atau geser penanda pin ke titik wisata.</span>
           </div>

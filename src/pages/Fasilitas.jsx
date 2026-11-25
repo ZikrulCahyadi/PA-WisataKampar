@@ -123,6 +123,8 @@ export default function Fasilitas() {
       }
       resetForm()
       dataCache.invalidate('fasilitas')
+      dataCache.invalidate('wf_fasilitas')
+      dataCache.invalidate('dashboard_data')
       await fetchFasilitas()
     } catch (err) {
       setFormError('Gagal menyimpan data: ' + err.message)
@@ -155,6 +157,9 @@ export default function Fasilitas() {
 
       showToast('Fasilitas berhasil dihapus', 'success')
       dataCache.invalidate('fasilitas')
+      dataCache.invalidate('wf_fasilitas')
+      dataCache.invalidate('wf_relasi')
+      dataCache.invalidate('dashboard_data')
       fetchFasilitas()
     } catch (err) {
       showToast('Gagal menghapus fasilitas: ' + err.message, 'error')

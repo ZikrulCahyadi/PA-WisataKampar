@@ -224,6 +224,7 @@ export default function Graf() {
 
       resetForm()
       dataCache.invalidate('graf')
+      dataCache.invalidate('dashboard_data')
       await fetchData()
     } catch (err) {
       setFormError('Gagal menyimpan data: ' + err.message)
@@ -278,6 +279,7 @@ export default function Graf() {
         'success'
       )
       dataCache.invalidate('graf')
+      dataCache.invalidate('dashboard_data')
       fetchData()
     } catch (err) {
       showToast('Gagal menghapus jalur: ' + err.message, 'error')

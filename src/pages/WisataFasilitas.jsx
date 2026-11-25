@@ -95,6 +95,7 @@ export default function WisataFasilitas() {
 
       showToast(`Fasilitas untuk ${selectedWisata.nama_wisata} berhasil disimpan`, 'success')
       dataCache.invalidate('wf_relasi')
+      dataCache.invalidate('fasilitas')
       await fetchData()
     } catch (err) {
       showToast('Gagal menyimpan fasilitas: ' + err.message, 'error')

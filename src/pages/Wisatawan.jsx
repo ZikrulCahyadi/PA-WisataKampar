@@ -59,6 +59,8 @@ export default function Wisatawan() {
 
       showToast('Akun wisatawan berhasil dihapus', 'success')
       dataCache.invalidate('wisatawan')
+      dataCache.invalidate('review')
+      dataCache.invalidate('dashboard_data')
       fetchWisatawan()
     } catch (err) {
       showToast('Gagal menghapus wisatawan: ' + err.message, 'error')

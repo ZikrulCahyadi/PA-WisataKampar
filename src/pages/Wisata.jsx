@@ -164,6 +164,9 @@ export default function Wisata() {
       }
       resetForm()
       dataCache.invalidate('wisata')
+      dataCache.invalidate('wisata_simple')
+      dataCache.invalidate('wf_wisata')
+      dataCache.invalidate('dashboard_data')
       await fetchWisata()
     } catch (err) {
       setFormError('Gagal menyimpan data: ' + err.message)
@@ -215,7 +218,13 @@ export default function Wisata() {
 
       showToast('Data wisata berhasil dihapus', 'success')
       dataCache.invalidate('wisata')
+      dataCache.invalidate('wisata_simple')
+      dataCache.invalidate('wf_wisata')
+      dataCache.invalidate('wf_relasi')
+      dataCache.invalidate('fasilitas')
       dataCache.invalidate('graf')
+      dataCache.invalidate('review')
+      dataCache.invalidate('dashboard_data')
       fetchWisata()
     } catch (err) {
       showToast('Gagal menghapus wisata: ' + err.message, 'error')

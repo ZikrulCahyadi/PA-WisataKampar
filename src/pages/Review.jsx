@@ -48,6 +48,7 @@ export default function Review() {
 
       showToast('Ulasan berhasil dihapus', 'success')
       dataCache.invalidate('review')
+      dataCache.invalidate('dashboard_data')
       fetchReview()
     } catch (err) {
       showToast('Gagal menghapus review: ' + err.message, 'error')
