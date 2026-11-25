@@ -729,84 +729,145 @@ export default function Graf() {
           </div>
         </div>
 
-        <div className="overflow-x-auto">
-          {loading ? (
-            <div className="p-12 text-center text-slate-500">Memuat data graf...</div>
-          ) : (
-            <table className="w-full text-left border-collapse min-w-[620px]">
-              <thead>
-                <tr className="bg-slate-50/80 border-b border-slate-200/80">
-                  <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider w-16 text-center">No</th>
-                  <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Koneksi Rute (Awal ➔ Tujuan)</th>
-                  <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Jarak Tempuh</th>
-                  <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider text-right">Aksi</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {paginatedGraf.length > 0 ? paginatedGraf.map((item, index) => {
-                  const isBidirectional = hasReverseRoute(item.titik_awal, item.titik_tujuan)
-                  const itemNumber = (currentPage - 1) * itemsPerPage + index + 1
-                  return (
-                    <tr key={item.id_graf} className="hover:bg-blue-50/20 transition-colors group">
-                      <td className="py-4 px-4 text-center text-slate-400 text-sm font-medium">{itemNumber}</td>
-                      <td className="py-4 px-4">
-                        <div className="flex flex-wrap items-center gap-2 text-slate-800 font-semibold text-sm">
-                          <div className="flex items-center gap-1.5 bg-blue-50/80 text-blue-800 px-2.5 py-1 rounded-lg border border-blue-200/60">
-                            <MapPin className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-                            <span>{getNamaWisata(item.titik_awal)}</span>
-                          </div>
-                          <ArrowRight className="w-4 h-4 text-slate-400 shrink-0" />
-                          <div className="flex items-center gap-1.5 bg-emerald-50/80 text-emerald-800 px-2.5 py-1 rounded-lg border border-emerald-200/60">
-                            <Flag className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                            <span>{getNamaWisata(item.titik_tujuan)}</span>
-                          </div>
+        {loading ? (
+          <div className="p-12 text-center text-slate-500">Memuat data graf...</div>
+        ) : (
+          <>
+            {/* Mobile Card View (< md) */}
+            <div className="md:hidden divide-y divide-slate-100">
+              {paginatedGraf.length > 0 ? paginatedGraf.map((item) => {
+                const isBidirectional = hasReverseRoute(item.titik_awal, item.titik_tujuan)
+                return (
+                  <div key={item.id_graf} className="p-4 space-y-2.5 hover:bg-blue-50/20 transition-colors">
+                    <div className="flex flex-col gap-1.5">
+                      <div className="flex items-center gap-1.5 bg-blue-50/80 text-blue-800 px-2.5 py-1.5 rounded-lg border border-blue-200/60 text-xs font-semibold">
+                        <MapPin className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                        <span className="truncate">{getNamaWisata(item.titik_awal)}</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 bg-emerald-50/80 text-emerald-800 px-2.5 py-1.5 rounded-lg border border-emerald-200/60 text-xs font-semibold">
+                        <Flag className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                        <span className="truncate">{getNamaWisata(item.titik_tujuan)}</span>
+                      </div>
+                    </div>
 
-                          {isBidirectional ? (
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200/70 ml-1" title="Tersedia rute bolak-balik (2 Arah)">
-                              <ArrowLeftRight className="w-3 h-3 text-indigo-600" />
-                              2 Arah
-                            </span>
-                          ) : (
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200/70 ml-1" title="Hanya rute 1 arah">
-                              1 Arah
-                            </span>
-                          )}
-                        </div>
-                      </td>
-                      <td className="py-4 px-4">
-                        <span className="font-extrabold text-slate-900 font-[Sora]">{item.jarak}</span> <span className="text-slate-500 text-xs font-medium">km</span>
-                      </td>
-                      <td className="py-4 px-4 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <button 
-                            onClick={() => handleEdit(item)}
-                            className="p-2 text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors duration-150"
-                            title="Edit Jalur"
-                          >
-                            <Edit2 className="w-4 h-4" />
-                          </button>
-                          <button 
-                            onClick={() => handleDeleteClick(item)}
-                            className="p-2 text-red-500 bg-red-50 hover:bg-red-100 rounded-lg transition-colors duration-150"
-                            title="Hapus Jalur"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </button>
-                        </div>
+                    <div className="flex items-center justify-between pt-1">
+                      <div className="flex items-center gap-2">
+                        <span className="font-extrabold text-slate-900 font-[Sora] text-sm">{item.jarak} km</span>
+                        {isBidirectional ? (
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200/70">
+                            <ArrowLeftRight className="w-3 h-3 text-indigo-600" />
+                            2 Arah
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200/70">
+                            1 Arah
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          onClick={() => handleEdit(item)}
+                          className="p-2 text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors"
+                          title="Edit Jalur"
+                        >
+                          <Edit2 className="w-4 h-4" />
+                        </button>
+                        <button
+                          onClick={() => handleDeleteClick(item)}
+                          className="p-2 text-red-500 bg-red-50 hover:bg-red-100 rounded-lg transition-colors"
+                          title="Hapus Jalur"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )
+              }) : (
+                <div className="p-10 text-center text-sm text-slate-500">
+                  {searchTerm || filterWisataId ? 'Tidak ada graf yang cocok dengan filter / pencarian.' : 'Belum ada data graf.'}
+                </div>
+              )}
+            </div>
+
+            {/* Desktop Table View (>= md) */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-slate-50/80 border-b border-slate-200/80">
+                    <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider w-16 text-center">No</th>
+                    <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Koneksi Rute (Awal ➔ Tujuan)</th>
+                    <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Jarak Tempuh</th>
+                    <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider text-right">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {paginatedGraf.length > 0 ? paginatedGraf.map((item, index) => {
+                    const isBidirectional = hasReverseRoute(item.titik_awal, item.titik_tujuan)
+                    const itemNumber = (currentPage - 1) * itemsPerPage + index + 1
+                    return (
+                      <tr key={item.id_graf} className="hover:bg-blue-50/20 transition-colors group">
+                        <td className="py-4 px-4 text-center text-slate-400 text-sm font-medium">{itemNumber}</td>
+                        <td className="py-4 px-4">
+                          <div className="flex flex-wrap items-center gap-2 text-slate-800 font-semibold text-sm">
+                            <div className="flex items-center gap-1.5 bg-blue-50/80 text-blue-800 px-2.5 py-1 rounded-lg border border-blue-200/60">
+                              <MapPin className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                              <span>{getNamaWisata(item.titik_awal)}</span>
+                            </div>
+                            <ArrowRight className="w-4 h-4 text-slate-400 shrink-0" />
+                            <div className="flex items-center gap-1.5 bg-emerald-50/80 text-emerald-800 px-2.5 py-1 rounded-lg border border-emerald-200/60">
+                              <Flag className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                              <span>{getNamaWisata(item.titik_tujuan)}</span>
+                            </div>
+
+                            {isBidirectional ? (
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200/70 ml-1" title="Tersedia rute bolak-balik (2 Arah)">
+                                <ArrowLeftRight className="w-3 h-3 text-indigo-600" />
+                                2 Arah
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200/70 ml-1" title="Hanya rute 1 arah">
+                                1 Arah
+                              </span>
+                            )}
+                          </div>
+                        </td>
+                        <td className="py-4 px-4">
+                          <span className="font-extrabold text-slate-900 font-[Sora]">{item.jarak}</span> <span className="text-slate-500 text-xs font-medium">km</span>
+                        </td>
+                        <td className="py-4 px-4 text-right">
+                          <div className="flex items-center justify-end gap-2">
+                            <button 
+                              onClick={() => handleEdit(item)}
+                              className="p-2 text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors duration-150"
+                              title="Edit Jalur"
+                            >
+                              <Edit2 className="w-4 h-4" />
+                            </button>
+                            <button 
+                              onClick={() => handleDeleteClick(item)}
+                              className="p-2 text-red-500 bg-red-50 hover:bg-red-100 rounded-lg transition-colors duration-150"
+                              title="Hapus Jalur"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                  }) : (
+                    <tr>
+                      <td colSpan={4} className="py-12 text-center text-slate-500">
+                        {searchTerm || filterWisataId ? 'Tidak ada graf yang cocok dengan pencarian.' : 'Belum ada data graf.'}
                       </td>
                     </tr>
-                  )
-                }) : (
-                  <tr>
-                    <td colSpan={4} className="py-12 text-center text-slate-500">
-                      {searchTerm ? 'Tidak ada graf yang cocok dengan pencarian.' : 'Belum ada data graf.'}
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          )}
-        </div>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
 
         {/* Pagination Footer */}
         {!loading && filteredGraf.length > 0 && (
@@ -816,17 +877,17 @@ export default function Graf() {
             </div>
 
             {totalPages > 1 && (
-              <div className="flex items-center gap-1.5">
+              <div className="flex flex-wrap items-center justify-center gap-1.5">
                 <button
                   onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                   disabled={currentPage === 1}
                   className="px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed font-medium transition-colors flex items-center gap-1"
                 >
                   <ChevronLeft className="w-3.5 h-3.5" />
-                  <span>Sebelumnya</span>
+                  <span className="hidden xs:inline">Sebelumnya</span>
                 </button>
 
-                <div className="flex items-center gap-1">
+                <div className="flex flex-wrap items-center justify-center gap-1">
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                     <button
                       key={page}
@@ -847,7 +908,7 @@ export default function Graf() {
                   disabled={currentPage === totalPages}
                   className="px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed font-medium transition-colors flex items-center gap-1"
                 >
-                  <span>Selanjutnya</span>
+                  <span className="hidden xs:inline">Selanjutnya</span>
                   <ChevronRight className="w-3.5 h-3.5" />
                 </button>
               </div>

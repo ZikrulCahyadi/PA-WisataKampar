@@ -45,7 +45,7 @@ export default function Layout({ children }) {
   const title = getPageTitle(location.pathname);
 
   return (
-    <div className="min-h-screen bg-slate-100/60 flex relative text-slate-800">
+    <div className="min-h-screen bg-slate-100/60 flex relative text-slate-800 overflow-x-hidden">
       <Sidebar 
         isOpen={isSidebarOpen} 
         setIsOpen={setIsSidebarOpen}

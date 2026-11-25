@@ -287,69 +287,113 @@ export default function Fasilitas() {
           </div>
         </div>
 
-        <div className="overflow-x-auto">
-          {loading ? (
-            <div className="p-12 text-center text-slate-500">Memuat data...</div>
-          ) : (
-            <table className="w-full text-left border-collapse min-w-[500px]">
-              <thead>
-                <tr className="bg-slate-50/80 border-b border-slate-200/80">
-                  <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider w-16 text-center">No</th>
-                  <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Nama Fasilitas</th>
-                  <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider text-center w-40">Terhubung Di</th>
-                  <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider text-right">Aksi</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {filteredFasilitas.length > 0 ? filteredFasilitas.map((item, index) => {
-                  const { Icon, bg } = getFasilitasIcon(item.nama_fasilitas)
-                  const usageCount = item.wisata_fasilitas?.length || 0
-                  return (
-                  <tr key={item.id_fasilitas} className="hover:bg-blue-50/20 transition-colors group">
-                    <td className="py-4 px-4 text-center text-slate-400 text-sm font-medium">{index + 1}</td>
-                    <td className="py-4 px-4">
-                      <div className="flex items-center gap-3">
-                        <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 border ${bg} shadow-xs`}>
-                          <Icon className="w-4 h-4" />
+        {loading ? (
+          <div className="p-12 text-center text-slate-500">Memuat data...</div>
+        ) : (
+          <>
+            {/* Mobile Card View (< md) */}
+            <div className="md:hidden divide-y divide-slate-100">
+              {filteredFasilitas.length > 0 ? filteredFasilitas.map((item) => {
+                const { Icon, bg } = getFasilitasIcon(item.nama_fasilitas)
+                const usageCount = item.wisata_fasilitas?.length || 0
+                return (
+                  <div key={item.id_fasilitas} className="p-4 flex items-center justify-between gap-3 hover:bg-blue-50/20 transition-colors">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border ${bg} shadow-xs`}>
+                        <Icon className="w-4 h-4" />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="font-bold text-slate-900 text-sm truncate">{item.nama_fasilitas}</p>
+                        <p className="text-xs text-slate-500 mt-0.5">{usageCount} Objek Wisata</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      <button
+                        onClick={() => handleEdit(item)}
+                        className="p-2 text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors"
+                        title="Edit Fasilitas"
+                      >
+                        <Edit2 className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteClick(item.id_fasilitas)}
+                        className="p-2 text-red-500 bg-red-50 hover:bg-red-100 rounded-lg transition-colors"
+                        title="Hapus Fasilitas"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                )
+              }) : (
+                <div className="p-10 text-center text-sm text-slate-500">
+                  {searchTerm ? 'Tidak ada fasilitas yang cocok dengan pencarian.' : 'Belum ada data fasilitas.'}
+                </div>
+              )}
+            </div>
+
+            {/* Desktop Table View (>= md) */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-slate-50/80 border-b border-slate-200/80">
+                    <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider w-16 text-center">No</th>
+                    <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Nama Fasilitas</th>
+                    <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider text-center w-40">Terhubung Di</th>
+                    <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider text-right">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {filteredFasilitas.length > 0 ? filteredFasilitas.map((item, index) => {
+                    const { Icon, bg } = getFasilitasIcon(item.nama_fasilitas)
+                    const usageCount = item.wisata_fasilitas?.length || 0
+                    return (
+                    <tr key={item.id_fasilitas} className="hover:bg-blue-50/20 transition-colors group">
+                      <td className="py-4 px-4 text-center text-slate-400 text-sm font-medium">{index + 1}</td>
+                      <td className="py-4 px-4">
+                        <div className="flex items-center gap-3">
+                          <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 border ${bg} shadow-xs`}>
+                            <Icon className="w-4 h-4" />
+                          </div>
+                          <span className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{item.nama_fasilitas}</span>
                         </div>
-                        <span className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{item.nama_fasilitas}</span>
-                      </div>
-                    </td>
-                    <td className="py-4 px-4 text-center">
-                      <span className="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200/70">
-                        {usageCount} Objek Wisata
-                      </span>
-                    </td>
-                    <td className="py-4 px-4 text-right">
-                      <div className="flex items-center justify-end gap-2">
-                        <button 
-                          onClick={() => handleEdit(item)}
-                          className="p-2 text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors duration-150"
-                          title="Edit Fasilitas"
-                        >
-                          <Edit2 className="w-4 h-4" />
-                        </button>
-                        <button 
-                          onClick={() => handleDeleteClick(item.id_fasilitas)}
-                          className="p-2 text-red-500 bg-red-50 hover:bg-red-100 rounded-lg transition-colors duration-150"
-                          title="Hapus Fasilitas"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                )}) : (
-                  <tr>
-                    <td colSpan={4} className="py-12 text-center text-slate-500">
-                      {searchTerm ? 'Tidak ada fasilitas yang cocok dengan pencarian.' : 'Belum ada data fasilitas.'}
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          )}
-        </div>
+                      </td>
+                      <td className="py-4 px-4 text-center">
+                        <span className="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200/70">
+                          {usageCount} Objek Wisata
+                        </span>
+                      </td>
+                      <td className="py-4 px-4 text-right">
+                        <div className="flex items-center justify-end gap-2">
+                          <button 
+                            onClick={() => handleEdit(item)}
+                            className="p-2 text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors duration-150"
+                            title="Edit Fasilitas"
+                          >
+                            <Edit2 className="w-4 h-4" />
+                          </button>
+                          <button 
+                            onClick={() => handleDeleteClick(item.id_fasilitas)}
+                            className="p-2 text-red-500 bg-red-50 hover:bg-red-100 rounded-lg transition-colors duration-150"
+                            title="Hapus Fasilitas"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  )}) : (
+                    <tr>
+                      <td colSpan={4} className="py-12 text-center text-slate-500">
+                        {searchTerm ? 'Tidak ada fasilitas yang cocok dengan pencarian.' : 'Belum ada data fasilitas.'}
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
       </div>
 
       <ConfirmModal

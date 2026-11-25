@@ -144,7 +144,7 @@ export default function Review() {
             </span>
 
             {/* Rating Filter Pills */}
-            <div className="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200/90 shadow-2xs">
+            <div className="flex flex-wrap items-center gap-1 bg-white p-1 rounded-xl border border-slate-200/90 shadow-2xs">
               {['Semua', 5, 4, 3, 2, 1].map((star) => (
                 <button
                   key={star}
@@ -178,75 +178,114 @@ export default function Review() {
           </div>
         </div>
 
-        <div className="overflow-x-auto">
-          {loading ? (
-            <div className="p-12 text-center text-slate-500">Memuat data review...</div>
-          ) : (
-            <table className="w-full text-left border-collapse min-w-[700px]">
-              <thead>
-                <tr className="bg-slate-50/80 border-b border-slate-200/80">
-                  <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider w-14 text-center">No</th>
-                  <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Destinasi Wisata</th>
-                  <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Wisatawan</th>
-                  <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider min-w-[130px]">Rating</th>
-                  <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Komentar</th>
-                  <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Tanggal</th>
-                  <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider text-right">Aksi</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {filtered.length > 0 ? filtered.map((item, index) => (
-                  <tr key={item.id_review} className="hover:bg-blue-50/20 transition-colors group">
-                    <td className="py-4 px-4 text-center text-slate-400 text-sm font-medium">{index + 1}</td>
-                    <td className="py-4 px-4">
-                      <span className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
-                        {item.wisata?.nama_wisata || '-'}
-                      </span>
-                    </td>
-                    <td className="py-4 px-4">
-                      <span className="text-slate-700 font-medium text-sm">
-                        {item.wisatawan?.nama_wisatawan || <span className="text-slate-400 italic">Anonim</span>}
-                      </span>
-                    </td>
-                    <td className="py-4 px-4">
-                      <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-amber-50/80 border border-amber-200/60 rounded-lg">
-                        <div className="flex items-center gap-0.5">
-                          {renderStars(item.rating)}
-                        </div>
-                        <span className="text-xs font-bold text-amber-700">{item.rating}/5</span>
-                      </div>
-                    </td>
-                    <td className="py-4 px-4">
-                      <p className="text-xs sm:text-sm text-slate-600 italic bg-slate-50/60 p-2 rounded-lg border border-slate-100 line-clamp-2 max-w-sm" title={item.komentar || '-'}>
-                        "{item.komentar || '-'}"
+        {loading ? (
+          <div className="p-12 text-center text-slate-500">Memuat data review...</div>
+        ) : (
+          <>
+            {/* Mobile Card View (< md) */}
+            <div className="md:hidden divide-y divide-slate-100">
+              {filtered.length > 0 ? filtered.map((item) => (
+                <div key={item.id_review} className="p-4 space-y-2.5 hover:bg-blue-50/20 transition-colors">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="min-w-0">
+                      <p className="font-bold text-slate-900 text-sm truncate">{item.wisata?.nama_wisata || '-'}</p>
+                      <p className="text-xs text-slate-500 mt-0.5">
+                        {item.wisatawan?.nama_wisatawan || <span className="text-slate-400 italic">Anonim</span>} • {item.tanggal}
                       </p>
-                    </td>
-                    <td className="py-4 px-4">
-                      <span className="text-xs text-slate-500 whitespace-nowrap font-medium">{item.tanggal}</span>
-                    </td>
-                    <td className="py-4 px-4 text-right">
-                      <div className="flex items-center justify-end">
-                        <button 
-                          onClick={() => handleDeleteClick(item.id_review)}
-                          className="p-2 text-red-500 bg-red-50 hover:bg-red-100 rounded-lg transition-colors duration-150"
-                          title="Hapus Review"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </td>
+                    </div>
+                    <div className="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-50 border border-amber-200/60 rounded-lg shrink-0">
+                      <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                      <span className="text-xs font-bold text-amber-700">{item.rating}/5</span>
+                    </div>
+                  </div>
+                  <div className="flex items-end justify-between gap-2">
+                    <p className="text-xs text-slate-600 italic bg-slate-50/70 p-2.5 rounded-lg border border-slate-100 flex-1">
+                      "{item.komentar || '-'}"
+                    </p>
+                    <button
+                      onClick={() => handleDeleteClick(item.id_review)}
+                      className="p-2 text-red-500 bg-red-50 hover:bg-red-100 rounded-lg transition-colors shrink-0"
+                      title="Hapus Review"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              )) : (
+                <div className="p-10 text-center text-sm text-slate-500">
+                  {search ? 'Tidak ada review yang cocok dengan pencarian.' : 'Belum ada data review.'}
+                </div>
+              )}
+            </div>
+
+            {/* Desktop Table View (>= md) */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-slate-50/80 border-b border-slate-200/80">
+                    <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider w-14 text-center">No</th>
+                    <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Destinasi Wisata</th>
+                    <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Wisatawan</th>
+                    <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider min-w-[130px]">Rating</th>
+                    <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Komentar</th>
+                    <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Tanggal</th>
+                    <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider text-right">Aksi</th>
                   </tr>
-                )) : (
-                  <tr>
-                    <td colSpan={7} className="py-12 text-center text-slate-500">
-                      {search ? 'Tidak ada review yang cocok dengan pencarian.' : 'Belum ada data review.'}
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          )}
-        </div>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {filtered.length > 0 ? filtered.map((item, index) => (
+                    <tr key={item.id_review} className="hover:bg-blue-50/20 transition-colors group">
+                      <td className="py-4 px-4 text-center text-slate-400 text-sm font-medium">{index + 1}</td>
+                      <td className="py-4 px-4">
+                        <span className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                          {item.wisata?.nama_wisata || '-'}
+                        </span>
+                      </td>
+                      <td className="py-4 px-4">
+                        <span className="text-slate-700 font-medium text-sm">
+                          {item.wisatawan?.nama_wisatawan || <span className="text-slate-400 italic">Anonim</span>}
+                        </span>
+                      </td>
+                      <td className="py-4 px-4">
+                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-amber-50/80 border border-amber-200/60 rounded-lg">
+                          <div className="flex items-center gap-0.5">
+                            {renderStars(item.rating)}
+                          </div>
+                          <span className="text-xs font-bold text-amber-700">{item.rating}/5</span>
+                        </div>
+                      </td>
+                      <td className="py-4 px-4">
+                        <p className="text-xs sm:text-sm text-slate-600 italic bg-slate-50/60 p-2 rounded-lg border border-slate-100 line-clamp-2 max-w-sm" title={item.komentar || '-'}>
+                          "{item.komentar || '-'}"
+                        </p>
+                      </td>
+                      <td className="py-4 px-4">
+                        <span className="text-xs text-slate-500 whitespace-nowrap font-medium">{item.tanggal}</span>
+                      </td>
+                      <td className="py-4 px-4 text-right">
+                        <div className="flex items-center justify-end">
+                          <button 
+                            onClick={() => handleDeleteClick(item.id_review)}
+                            className="p-2 text-red-500 bg-red-50 hover:bg-red-100 rounded-lg transition-colors duration-150"
+                            title="Hapus Review"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  )) : (
+                    <tr>
+                      <td colSpan={7} className="py-12 text-center text-slate-500">
+                        {search ? 'Tidak ada review yang cocok dengan pencarian.' : 'Belum ada data review.'}
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
       </div>
 
       <ConfirmModal

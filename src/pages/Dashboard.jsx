@@ -446,7 +446,7 @@ export default function Dashboard() {
                         ))}
                       </div>
                     </div>
-                    <div className="ml-13 pl-3.5 border-l-2 border-slate-200 text-slate-600 text-sm leading-relaxed italic bg-slate-50/50 py-1.5 rounded-r-lg">
+                    <div className="ml-0 sm:ml-13 pl-3.5 border-l-2 border-slate-200 text-slate-600 text-xs sm:text-sm leading-relaxed italic bg-slate-50/50 py-1.5 rounded-r-lg">
                       "{review.komentar}"
                     </div>
                   </div>

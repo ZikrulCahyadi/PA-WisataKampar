@@ -700,107 +700,179 @@ export default function Wisata() {
           </div>
         </div>
 
-        <div className="overflow-x-auto">
-          {loading ? (
-            <div className="p-12 text-center text-slate-500">Memuat data wisata...</div>
-          ) : (
-            <table className="w-full text-left border-collapse min-w-[760px]">
-              <thead>
-                <tr className="bg-slate-50/80 border-b border-slate-200/80">
-                  <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider w-16 text-center">No</th>
-                  <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Info Wisata</th>
-                  <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Kategori</th>
-                  <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider hidden md:table-cell">Lokasi</th>
-                  <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider hidden lg:table-cell">Harga Tiket</th>
-                  <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider hidden lg:table-cell">Biaya Parkir</th>
-                  <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider text-right">Aksi</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {filteredWisata.length > 0 ? filteredWisata.map((item, index) => (
-                  <tr key={item.id_wisata} className="hover:bg-blue-50/20 transition-colors group">
-                    <td className="py-4 px-4 text-center text-slate-400 text-sm font-medium">{index + 1}</td>
-                    <td className="py-4 px-4">
-                      <div className="flex items-center gap-3.5">
-                        {item.gambar ? (
-                          <img src={item.gambar} alt={item.nama_wisata} className="w-12 h-12 rounded-xl object-cover border border-slate-200 shrink-0 shadow-xs group-hover:scale-105 transition-transform duration-200" />
-                        ) : (
-                          <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center border border-slate-200 text-slate-400 shrink-0">
-                            <ImageIcon className="w-5 h-5" />
-                          </div>
-                        )}
-                        <div className="min-w-0">
-                          <p className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{item.nama_wisata}</p>
-                          <p className="text-xs text-slate-500 truncate max-w-[200px] sm:max-w-xs">{item.alamat}</p>
-                          <div className="flex flex-wrap items-center gap-1.5 mt-1 sm:hidden text-[10px] text-slate-500">
-                            <span className="font-semibold text-slate-700">Tiket: {Number(item.harga_tiket || 0) === 0 ? 'Gratis' : `Rp ${Number(item.harga_tiket).toLocaleString('id-ID')}`}</span>
-                            <span>•</span>
-                            <span>Parkir: {Number(item.biaya_parkir_motor || 0) === 0 ? 'Gratis' : `Rp ${Number(item.biaya_parkir_motor).toLocaleString('id-ID')}`} / {Number(item.biaya_parkir_mobil || 0) === 0 ? 'Gratis' : `Rp ${Number(item.biaya_parkir_mobil).toLocaleString('id-ID')}`}</span>
+        {loading ? (
+          <div className="p-12 text-center text-slate-500">Memuat data wisata...</div>
+        ) : (
+          <>
+            {/* Mobile Card View (< md) */}
+            <div className="md:hidden divide-y divide-slate-100">
+              {filteredWisata.length > 0 ? filteredWisata.map((item) => (
+                <div key={item.id_wisata} className="p-4 space-y-3 hover:bg-blue-50/20 transition-colors">
+                  <div className="flex items-start gap-3">
+                    {item.gambar ? (
+                      <img src={item.gambar} alt={item.nama_wisata} className="w-14 h-14 rounded-xl object-cover border border-slate-200 shrink-0 shadow-xs" />
+                    ) : (
+                      <div className="w-14 h-14 rounded-xl bg-slate-100 flex items-center justify-center border border-slate-200 text-slate-400 shrink-0">
+                        <ImageIcon className="w-5 h-5" />
+                      </div>
+                    )}
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-start justify-between gap-2">
+                        <p className="font-bold text-slate-900 text-sm leading-snug">{item.nama_wisata}</p>
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold border shrink-0 ${getKategoriBadge(item.kategori)}`}>
+                          {item.kategori}
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-500 line-clamp-2 mt-0.5">{item.alamat}</p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2 bg-slate-50/90 p-2.5 rounded-xl border border-slate-100 text-xs">
+                    <div>
+                      <span className="text-[11px] text-slate-400 block">Harga Tiket</span>
+                      <span className="font-semibold text-slate-800">
+                        {Number(item.harga_tiket || 0) === 0 ? 'Gratis' : `Rp ${Number(item.harga_tiket).toLocaleString('id-ID')}`}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="text-[11px] text-slate-400 block">Parkir (Motor / Mobil)</span>
+                      <span className="font-semibold text-slate-800">
+                        {Number(item.biaya_parkir_motor || 0) === 0 ? 'Gratis' : `Rp ${Number(item.biaya_parkir_motor).toLocaleString('id-ID')}`} / {Number(item.biaya_parkir_mobil || 0) === 0 ? 'Gratis' : `Rp ${Number(item.biaya_parkir_mobil).toLocaleString('id-ID')}`}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between gap-2 pt-0.5">
+                    <span className="text-[11px] font-mono text-slate-400 truncate">
+                      {item.latitude ?? '-'}, {item.longitude ?? '-'}
+                    </span>
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      <button
+                        onClick={() => setGaleriModal({ isOpen: true, wisataId: item.id_wisata, wisataName: item.nama_wisata })}
+                        className="p-2 text-purple-600 bg-purple-50 hover:bg-purple-100 rounded-lg transition-colors"
+                        title="Galeri Foto Wisata"
+                      >
+                        <ImageIcon className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => handleEdit(item)}
+                        className="p-2 text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors"
+                        title="Edit Wisata"
+                      >
+                        <Edit2 className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteClick(item.id_wisata)}
+                        className="p-2 text-red-500 bg-red-50 hover:bg-red-100 rounded-lg transition-colors"
+                        title="Hapus Wisata"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )) : (
+                <div className="p-10 text-center text-sm text-slate-500">
+                  {searchTerm || selectedCategory !== 'Semua' ? 'Tidak ada wisata yang cocok dengan filter / pencarian.' : 'Belum ada data wisata.'}
+                </div>
+              )}
+            </div>
+
+            {/* Desktop Table View (>= md) */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-slate-50/80 border-b border-slate-200/80">
+                    <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider w-16 text-center">No</th>
+                    <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Info Wisata</th>
+                    <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Kategori</th>
+                    <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Lokasi</th>
+                    <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Harga Tiket</th>
+                    <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Biaya Parkir</th>
+                    <th className="py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider text-right">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {filteredWisata.length > 0 ? filteredWisata.map((item, index) => (
+                    <tr key={item.id_wisata} className="hover:bg-blue-50/20 transition-colors group">
+                      <td className="py-4 px-4 text-center text-slate-400 text-sm font-medium">{index + 1}</td>
+                      <td className="py-4 px-4">
+                        <div className="flex items-center gap-3.5">
+                          {item.gambar ? (
+                            <img src={item.gambar} alt={item.nama_wisata} className="w-12 h-12 rounded-xl object-cover border border-slate-200 shrink-0 shadow-xs group-hover:scale-105 transition-transform duration-200" />
+                          ) : (
+                            <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center border border-slate-200 text-slate-400 shrink-0">
+                              <ImageIcon className="w-5 h-5" />
+                            </div>
+                          )}
+                          <div className="min-w-0">
+                            <p className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{item.nama_wisata}</p>
+                            <p className="text-xs text-slate-500 truncate max-w-xs">{item.alamat}</p>
                           </div>
                         </div>
-                      </div>
-                    </td>
-                    <td className="py-4 px-4">
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border ${getKategoriBadge(item.kategori)}`}>
-                        {item.kategori}
-                      </span>
-                    </td>
-                    <td className="py-4 px-4 hidden md:table-cell">
-                      <div className="text-xs text-slate-600 space-y-0.5 font-mono">
-                        <p>Lat: <span className="font-semibold text-slate-900">{item.latitude ?? '-'}</span></p>
-                        <p>Lng: <span className="font-semibold text-slate-900">{item.longitude ?? '-'}</span></p>
-                      </div>
-                    </td>
-                    <td className="py-4 px-4 hidden lg:table-cell font-medium text-sm text-slate-800">
-                      {Number(item.harga_tiket || 0) === 0 ? (
-                        <span className="text-emerald-700 font-semibold text-xs px-2.5 py-1 bg-emerald-50 border border-emerald-200/80 rounded-lg">Gratis</span>
-                      ) : (
-                        `Rp ${Number(item.harga_tiket).toLocaleString('id-ID')}`
-                      )}
-                    </td>
-                    <td className="py-4 px-4 hidden lg:table-cell">
-                      <div className="text-xs space-y-0.5 text-slate-700">
-                        <p><span className="text-slate-400 font-medium">Motor:</span> {Number(item.biaya_parkir_motor || 0) === 0 ? 'Gratis' : `Rp ${Number(item.biaya_parkir_motor).toLocaleString('id-ID')}`}</p>
-                        <p><span className="text-slate-400 font-medium">Mobil:</span> {Number(item.biaya_parkir_mobil || 0) === 0 ? 'Gratis' : `Rp ${Number(item.biaya_parkir_mobil).toLocaleString('id-ID')}`}</p>
-                      </div>
-                    </td>
-                    <td className="py-4 px-4 text-right">
-                      <div className="flex items-center justify-end gap-1.5">
-                        <button 
-                          onClick={() => setGaleriModal({ isOpen: true, wisataId: item.id_wisata, wisataName: item.nama_wisata })}
-                          className="p-2 text-purple-600 bg-purple-50 hover:bg-purple-100 rounded-lg transition-colors duration-150"
-                          title="Galeri Foto Wisata"
-                        >
-                          <ImageIcon className="w-4 h-4" />
-                        </button>
-                        <button 
-                          onClick={() => handleEdit(item)}
-                          className="p-2 text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors duration-150"
-                          title="Edit Wisata"
-                        >
-                          <Edit2 className="w-4 h-4" />
-                        </button>
-                        <button 
-                          onClick={() => handleDeleteClick(item.id_wisata)}
-                          className="p-2 text-red-500 bg-red-50 hover:bg-red-100 rounded-lg transition-colors duration-150"
-                          title="Hapus Wisata"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                )) : (
-                  <tr>
-                    <td colSpan={7} className="py-12 text-center text-slate-500">
-                      {searchTerm || selectedCategory !== 'Semua' ? 'Tidak ada wisata yang cocok dengan filter / pencarian.' : 'Belum ada data wisata.'}
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          )}
-        </div>
+                      </td>
+                      <td className="py-4 px-4">
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border ${getKategoriBadge(item.kategori)}`}>
+                          {item.kategori}
+                        </span>
+                      </td>
+                      <td className="py-4 px-4">
+                        <div className="text-xs text-slate-600 space-y-0.5 font-mono">
+                          <p>Lat: <span className="font-semibold text-slate-900">{item.latitude ?? '-'}</span></p>
+                          <p>Lng: <span className="font-semibold text-slate-900">{item.longitude ?? '-'}</span></p>
+                        </div>
+                      </td>
+                      <td className="py-4 px-4 font-medium text-sm text-slate-800">
+                        {Number(item.harga_tiket || 0) === 0 ? (
+                          <span className="text-emerald-700 font-semibold text-xs px-2.5 py-1 bg-emerald-50 border border-emerald-200/80 rounded-lg">Gratis</span>
+                        ) : (
+                          `Rp ${Number(item.harga_tiket).toLocaleString('id-ID')}`
+                        )}
+                      </td>
+                      <td className="py-4 px-4">
+                        <div className="text-xs space-y-0.5 text-slate-700">
+                          <p><span className="text-slate-400 font-medium">Motor:</span> {Number(item.biaya_parkir_motor || 0) === 0 ? 'Gratis' : `Rp ${Number(item.biaya_parkir_motor).toLocaleString('id-ID')}`}</p>
+                          <p><span className="text-slate-400 font-medium">Mobil:</span> {Number(item.biaya_parkir_mobil || 0) === 0 ? 'Gratis' : `Rp ${Number(item.biaya_parkir_mobil).toLocaleString('id-ID')}`}</p>
+                        </div>
+                      </td>
+                      <td className="py-4 px-4 text-right">
+                        <div className="flex items-center justify-end gap-1.5">
+                          <button 
+                            onClick={() => setGaleriModal({ isOpen: true, wisataId: item.id_wisata, wisataName: item.nama_wisata })}
+                            className="p-2 text-purple-600 bg-purple-50 hover:bg-purple-100 rounded-lg transition-colors duration-150"
+                            title="Galeri Foto Wisata"
+                          >
+                            <ImageIcon className="w-4 h-4" />
+                          </button>
+                          <button 
+                            onClick={() => handleEdit(item)}
+                            className="p-2 text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors duration-150"
+                            title="Edit Wisata"
+                          >
+                            <Edit2 className="w-4 h-4" />
+                          </button>
+                          <button 
+                            onClick={() => handleDeleteClick(item.id_wisata)}
+                            className="p-2 text-red-500 bg-red-50 hover:bg-red-100 rounded-lg transition-colors duration-150"
+                            title="Hapus Wisata"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  )) : (
+                    <tr>
+                      <td colSpan={7} className="py-12 text-center text-slate-500">
+                        {searchTerm || selectedCategory !== 'Semua' ? 'Tidak ada wisata yang cocok dengan filter / pencarian.' : 'Belum ada data wisata.'}
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
       </div>
 
       <ConfirmModal
