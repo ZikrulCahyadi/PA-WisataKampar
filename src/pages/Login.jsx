@@ -77,7 +77,7 @@ export default function Login() {
       <div className="relative hidden lg:flex lg:w-[45%] flex-col justify-between overflow-hidden p-12">
         <div 
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/bg_login.png')" }}
+          style={{ backgroundImage: "url('/bg_login.jpg')" }}
         />
         {/* Overlay Vignette & Bottom Gradient */}
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/30 to-transparent" />
