@@ -79,14 +79,14 @@ export default function Sidebar({ isOpen, setIsOpen, isCollapsed, setIsCollapsed
           <div className={`relative z-10 h-16 flex items-center justify-between px-4 border-b border-white/10 transition-all ${isCollapsed ? 'lg:justify-center lg:px-0' : 'lg:px-5'}`}>
             {/* Desktop collapsed icon */}
             <div className={`hidden ${isCollapsed ? 'lg:flex' : 'hidden'} items-center justify-center w-full`}>
-              <div className="w-9 h-9 bg-white/10 rounded-xl flex items-center justify-center p-1.5" title="Wisata Kampar Admin">
+              <div className="w-9 h-9 bg-white/95 rounded-xl flex items-center justify-center p-1 shadow-xs" title="Wisata Kampar Admin">
                 <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
               </div>
             </div>
 
             {/* Desktop uncollapsed & Mobile full brand */}
             <div className={`flex items-center gap-3 ${isCollapsed ? 'lg:hidden' : 'flex'}`}>
-              <div className="w-9 h-9 bg-white/10 rounded-xl flex items-center justify-center p-1.5 shrink-0">
+              <div className="w-9 h-9 bg-white/95 rounded-xl flex items-center justify-center p-1 shrink-0 shadow-xs">
                 <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
               </div>
               <div className="truncate">
