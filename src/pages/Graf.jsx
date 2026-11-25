@@ -422,8 +422,8 @@ export default function Graf() {
     <div className="flex flex-col gap-6">
       
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4">
-        <div>
+      <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-3.5 xl:gap-4">
+        <div className="min-w-0">
           <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
             Kelola Jalur Graf
           </h1>
@@ -432,35 +432,35 @@ export default function Graf() {
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+        <div className="flex flex-wrap items-center gap-2 w-full xl:w-auto shrink-0">
           <button
             type="button"
             onClick={() => setShowMap(!showMap)}
-            className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl font-medium text-sm transition-colors border shadow-2xs ${
+            className={`flex-1 sm:flex-initial whitespace-nowrap flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl font-medium text-xs sm:text-sm transition-colors border shadow-2xs ${
               showMap
                 ? 'bg-indigo-50 text-indigo-700 border-indigo-300'
                 : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
             }`}
           >
-            <MapIcon className="w-4 h-4" />
+            <MapIcon className="w-4 h-4 shrink-0" />
             <span>{showMap ? 'Tutup Peta' : 'Lihat Peta Graf'}</span>
           </button>
 
           <button
             type="button"
             onClick={() => setAutoConnectModal({ isOpen: true, wisataId: '' })}
-            className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2.5 rounded-xl font-medium text-sm transition-colors shadow-xs"
+            className="flex-1 sm:flex-initial whitespace-nowrap flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2.5 rounded-xl font-medium text-xs sm:text-sm transition-colors shadow-xs"
           >
-            <Zap className="w-4 h-4" />
+            <Zap className="w-4 h-4 shrink-0" />
             <span>Hubungkan Otomatis</span>
           </button>
 
           {!showForm && (
             <button 
               onClick={() => { setShowForm(true); setEditData(null); setForm(emptyForm); setFormError('') }}
-              className="w-full sm:w-auto flex items-center justify-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl font-medium text-sm transition-colors shadow-xs shrink-0"
+              className="w-full sm:w-auto whitespace-nowrap flex items-center justify-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl font-medium text-xs sm:text-sm transition-colors shadow-xs shrink-0"
             >
-              <Plus className="w-4 h-4" />
+              <Plus className="w-4 h-4 shrink-0" />
               <span>Tambah Jalur Graf</span>
             </button>
           )}
@@ -690,10 +690,10 @@ export default function Graf() {
 
       {/* Table Section */}
       <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden flex flex-col">
-        <div className="p-4 sm:p-5 border-b border-slate-200/80 flex flex-col sm:flex-row justify-between items-center gap-4 bg-slate-50/70">
-          <div className="flex items-center gap-2">
-            <h2 className="text-base sm:text-lg font-bold font-[Sora] text-slate-900">Daftar Jalur Graf</h2>
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-100/70 text-indigo-800">
+        <div className="p-4 sm:p-5 border-b border-slate-200/80 flex flex-col lg:flex-row justify-between items-stretch lg:items-center gap-3 sm:gap-4 bg-slate-50/70">
+          <div className="flex items-center gap-2 shrink-0">
+            <h2 className="text-base sm:text-lg font-bold font-[Sora] text-slate-900 whitespace-nowrap">Daftar Jalur Graf</h2>
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-100/70 text-indigo-800 whitespace-nowrap shrink-0">
               {filteredGraf.length} Rute
             </span>
           </div>
@@ -705,7 +705,7 @@ export default function Graf() {
                 setFilterWisataId(e.target.value)
                 setCurrentPage(1)
               }}
-              className="w-full sm:w-56 px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs sm:text-sm focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-xs"
+              className="w-full sm:flex-1 lg:w-52 px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs sm:text-sm focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-xs"
             >
               <option value="">Semua Objek Wisata</option>
               {wisataList.map(w => (
@@ -713,7 +713,7 @@ export default function Graf() {
               ))}
             </select>
 
-            <div className="relative w-full sm:w-64">
+            <div className="relative w-full sm:flex-1 lg:w-64">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <input
                 type="text"
