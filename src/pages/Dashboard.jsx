@@ -229,13 +229,14 @@ export default function Dashboard() {
 
       {/* Stats Cards (5 Clickable Cards) */}
       <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-3 sm:gap-4">
-        {statCards.map((s) => {
+        {statCards.map((s, idx) => {
           const Icon = s.icon;
+          const isLastOdd = idx === statCards.length - 1;
           return (
             <div 
               key={s.label} 
               onClick={() => navigate(s.path)}
-              className="bg-white rounded-2xl p-3.5 sm:p-5 border border-slate-200/80 shadow-xs flex items-center justify-between gap-2.5 sm:gap-3 hover:border-blue-400 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group"
+              className={`bg-white rounded-2xl p-3.5 sm:p-5 border border-slate-200/80 shadow-xs flex items-center justify-between gap-2.5 sm:gap-3 hover:border-blue-400 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group ${isLastOdd ? 'col-span-2 sm:col-span-1' : ''}`}
               title={`Buka ${s.label}`}
             >
               <div className="min-w-0 flex-1">
