@@ -185,6 +185,7 @@ export default function ProfileModal({ isOpen, onClose }) {
                 <div className="relative">
                   <input
                     type={showOldPassword ? 'text' : 'password'}
+                    autoComplete="current-password"
                     value={passwordLama}
                     onChange={(e) => setPasswordLama(e.target.value)}
                     disabled={loading}
@@ -208,6 +209,7 @@ export default function ProfileModal({ isOpen, onClose }) {
                 <div className="relative">
                   <input
                     type={showNewPassword ? 'text' : 'password'}
+                    autoComplete="new-password"
                     value={passwordBaru}
                     onChange={(e) => setPasswordBaru(e.target.value)}
                     disabled={loading}
@@ -230,6 +232,7 @@ export default function ProfileModal({ isOpen, onClose }) {
                 </label>
                 <input
                   type="password"
+                  autoComplete="new-password"
                   value={konfirmasiPassword}
                   onChange={(e) => setKonfirmasiPassword(e.target.value)}
                   disabled={loading}
