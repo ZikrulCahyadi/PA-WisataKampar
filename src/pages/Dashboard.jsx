@@ -446,20 +446,26 @@ export default function Dashboard() {
         
         {/* Left Column: Recent Reviews (60%) */}
         <div className="lg:col-span-3 bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden flex flex-col h-full">
-          <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/70">
-            <div>
-              <h3 className="font-bold font-[Sora] text-slate-800 text-base tracking-tight">Review Terbaru</h3>
-              <p className="text-xs text-slate-500 mt-0.5">Ulasan terkini dari pengunjung</p>
+          <div className="p-5 sm:p-6 border-b border-slate-100 flex justify-between items-center gap-3 bg-gradient-to-r from-blue-50/70 via-slate-50/40 to-white">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-10 h-10 rounded-xl bg-blue-100/80 text-blue-600 flex items-center justify-center shrink-0">
+                <MessageSquare className="w-5 h-5" />
+              </div>
+              <div className="min-w-0">
+                <h3 className="font-bold font-[Sora] text-slate-900 text-base tracking-tight truncate">Review Terbaru</h3>
+                <p className="text-xs text-slate-500 mt-0.5 truncate">Ulasan terkini dari pengunjung</p>
+              </div>
             </div>
-            <button onClick={() => navigate('/review')} className="text-xs font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1 group px-2.5 py-1.5 rounded-lg hover:bg-blue-50 transition-colors">
-              Lihat semua <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            <button onClick={() => navigate('/review')} className="text-xs font-semibold text-blue-600 hover:text-blue-700 bg-white border border-slate-200/90 hover:border-blue-200 hover:bg-blue-50 flex items-center gap-1 group px-3 py-1.5 rounded-full shadow-2xs transition-all shrink-0">
+              <span>Lihat semua</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </button>
           </div>
           <div className="flex-1 flex flex-col">
             {loading ? (
               [1,2,3].map(i => (
                 <div key={i} className="p-5 border-b border-slate-50 flex gap-4 animate-pulse">
-                  <div className="w-10 h-10 bg-slate-200 rounded-full shrink-0"></div>
+                  <div className="w-10 h-10 bg-slate-200 rounded-xl shrink-0"></div>
                   <div className="flex-1 space-y-2 py-1"><div className="h-4 bg-slate-200 rounded w-1/3"></div><div className="h-3 bg-slate-100 rounded w-full"></div></div>
                 </div>
               ))
@@ -469,30 +475,33 @@ export default function Dashboard() {
                   const isAnonim = !review.wisatawan?.nama_wisatawan
                   const avatarColor = getAvatarColor(review.wisatawan?.nama_wisatawan || 'Anonim')
                   return (
-                  <div key={review.id_review} className="p-5 hover:bg-slate-50/80 transition-colors cursor-pointer group/item">
-                    <div className="flex items-start justify-between gap-4 mb-2.5">
-                      <div className="flex items-start gap-3">
-                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm shrink-0 shadow-xs ${isAnonim ? 'bg-slate-100 text-slate-400 border border-slate-200' : avatarColor}`}>
+                  <div key={review.id_review} className="p-4 sm:p-5 hover:bg-slate-50/70 transition-colors cursor-pointer group/item">
+                    <div className="flex items-start justify-between gap-3 mb-2.5">
+                      <div className="flex items-start gap-3 min-w-0">
+                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm shrink-0 ${isAnonim ? 'bg-slate-100 text-slate-400 border border-slate-200' : avatarColor}`}>
                           {isAnonim ? <User className="w-5 h-5" /> : review.wisatawan.nama_wisatawan.charAt(0).toUpperCase()}
                         </div>
-                        <div>
-                          <p className="text-sm font-bold text-slate-800 hover:text-blue-600 transition-colors mb-0.5" onClick={(e) => { e.stopPropagation(); navigate('/wisata') }}>
+                        <div className="min-w-0">
+                          <p className="text-sm font-bold text-slate-900 hover:text-blue-600 transition-colors mb-0.5 truncate" onClick={(e) => { e.stopPropagation(); navigate('/wisata') }}>
                             {review.wisata?.nama_wisata || 'Tempat Wisata'}
                           </p>
                           <p className="text-xs text-slate-500 flex items-center gap-1.5">
-                            <span className={isAnonim ? "text-slate-400 italic" : "text-slate-700 font-medium"}>{isAnonim ? 'Wisatawan' : review.wisatawan.nama_wisatawan}</span>
+                            <span className={isAnonim ? "text-slate-400 italic" : "text-slate-600 font-medium"}>{isAnonim ? 'Wisatawan' : review.wisatawan.nama_wisatawan}</span>
                             <span className="w-1 h-1 rounded-full bg-slate-300"></span>
                             <span className="text-[11px] text-slate-400 font-medium">{getRelativeTime(review.tanggal)}</span>
                           </p>
                         </div>
                       </div>
-                      <div className="flex items-center gap-0.5 shrink-0 px-2 py-1 rounded-lg bg-amber-50 border border-amber-100">
-                        {Array.from({length: 5}).map((_, i) => (
-                          <Star key={i} className={`w-3.5 h-3.5 ${i < review.rating ? getStarColor(review.rating) : 'text-slate-200'}`} />
-                        ))}
+                      <div className="flex items-center gap-1.5 shrink-0 px-2.5 py-1 rounded-full bg-amber-50/90 border border-amber-200/60">
+                        <div className="flex items-center gap-0.5">
+                          {Array.from({length: 5}).map((_, i) => (
+                            <Star key={i} className={`w-3 h-3 ${i < review.rating ? getStarColor(review.rating) : 'text-slate-200'}`} />
+                          ))}
+                        </div>
+                        <span className="text-[11px] font-bold text-slate-700 ml-0.5">{Number(review.rating || 0).toFixed(1)}/5</span>
                       </div>
                     </div>
-                    <div className="ml-0 sm:ml-13 pl-3.5 border-l-2 border-slate-200 text-slate-600 text-xs sm:text-sm leading-relaxed italic bg-slate-50/50 py-1.5 rounded-r-lg">
+                    <div className="ml-0 sm:ml-13 px-3.5 py-2 rounded-xl bg-slate-100/80 text-slate-700 text-xs sm:text-sm leading-relaxed">
                       "{review.komentar}"
                     </div>
                   </div>
@@ -509,13 +518,19 @@ export default function Dashboard() {
 
         {/* Right Column: New Wisatawan (40%) */}
         <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden flex flex-col h-full">
-          <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/70">
-            <div>
-              <h3 className="font-bold font-[Sora] text-slate-800 text-base tracking-tight">Wisatawan Baru</h3>
-              <p className="text-xs text-slate-500 mt-0.5">Pengguna yang baru bergabung</p>
+          <div className="p-5 sm:p-6 border-b border-slate-100 flex justify-between items-center gap-3 bg-gradient-to-r from-blue-50/70 via-slate-50/40 to-white">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-10 h-10 rounded-xl bg-blue-100/80 text-blue-600 flex items-center justify-center shrink-0">
+                <Users className="w-5 h-5" />
+              </div>
+              <div className="min-w-0">
+                <h3 className="font-bold font-[Sora] text-slate-900 text-base tracking-tight truncate">Wisatawan Baru</h3>
+                <p className="text-xs text-slate-500 mt-0.5 truncate">Pengguna yang baru bergabung</p>
+              </div>
             </div>
-            <button onClick={() => navigate('/wisatawan')} className="text-xs font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1 group px-2.5 py-1.5 rounded-lg hover:bg-blue-50 transition-colors">
-              Lihat semua <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            <button onClick={() => navigate('/wisatawan')} className="text-xs font-semibold text-blue-600 hover:text-blue-700 bg-white border border-slate-200/90 hover:border-blue-200 hover:bg-blue-50 flex items-center gap-1 group px-3 py-1.5 rounded-full shadow-2xs transition-all shrink-0">
+              <span>Lihat semua</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </button>
           </div>
           <div className="flex flex-col flex-1">
@@ -523,7 +538,7 @@ export default function Dashboard() {
               {loading ? (
                 [1,2,3,4].map(i => (
                   <div key={i} className="p-5 flex gap-3 animate-pulse">
-                    <div className="w-10 h-10 bg-slate-200 rounded-full shrink-0"></div>
+                    <div className="w-10 h-10 bg-slate-200 rounded-xl shrink-0"></div>
                     <div className="flex-1 space-y-2 py-1"><div className="h-4 bg-slate-200 rounded w-1/2"></div><div className="h-3 bg-slate-100 rounded w-3/4"></div></div>
                   </div>
                 ))
@@ -535,15 +550,15 @@ export default function Dashboard() {
                       onClick={() => navigate('/wisatawan')}
                       className="p-4 sm:p-5 flex items-center gap-3.5 hover:bg-slate-50/80 transition-colors cursor-pointer group/user"
                     >
-                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm shrink-0 shadow-xs ${getAvatarColor(user.nama_wisatawan)}`}>
+                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm shrink-0 ${getAvatarColor(user.nama_wisatawan)}`}>
                         {user.nama_wisatawan?.charAt(0).toUpperCase() || '?'}
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-bold text-slate-800 truncate group-hover/user:text-blue-600 transition-colors">{user.nama_wisatawan}</p>
                         <p className="text-[11px] text-slate-500 mt-0.5 truncate">{user.email || 'Akun Wisatawan'}</p>
                       </div>
-                      <div className="shrink-0 flex flex-col items-end gap-1">
-                        <span className="px-2.5 py-0.5 bg-emerald-50 text-emerald-700 text-[10px] font-bold tracking-wider uppercase rounded-md border border-emerald-200/70">
+                      <div className="shrink-0">
+                        <span className="px-3 py-0.5 bg-emerald-50 text-emerald-600 text-[10px] font-bold tracking-wider uppercase rounded-full border border-emerald-200/70">
                           Aktif
                         </span>
                       </div>
@@ -560,9 +575,10 @@ export default function Dashboard() {
             
             {/* Footer */}
             {!loading && (
-              <div className="p-4 bg-slate-50/70 border-t border-slate-100 mt-auto text-center">
-                <span className="text-xs font-medium text-slate-500">
-                  Total terdaftar: <strong className="text-slate-800 font-semibold">{stats.wisatawan} wisatawan</strong>
+              <div className="p-3.5 bg-gradient-to-r from-blue-50/60 via-slate-50/80 to-blue-50/60 border-t border-slate-100 mt-auto flex items-center justify-center gap-1.5">
+                <Users className="w-4 h-4 text-blue-600" />
+                <span className="text-xs font-medium text-slate-600">
+                  Total terdaftar: <strong className="text-slate-900 font-bold">{stats.wisatawan} wisatawan</strong>
                 </span>
               </div>
             )}
