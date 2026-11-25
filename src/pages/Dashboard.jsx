@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { supabase } from '../supabaseClient'
-import { MapPin, Route, Building, Star, ArrowRight, UserPlus, MessageSquare, User, Calendar, Plus, Sparkles, TrendingUp, Users, PieChart, Compass } from 'lucide-react'
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
+import { MapPin, Route, Building, Star, ArrowRight, UserPlus, MessageSquare, User, Calendar, Plus, Sparkles, TrendingUp, Users, Tag } from 'lucide-react'
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
 import { dataCache } from '../utils/dataCache'
 
 export default function Dashboard() {
@@ -311,87 +311,87 @@ export default function Dashboard() {
           )}
         </div>
 
-        {/* Right: Kategori Wisata Skripsi (40%) */}
+        {/* Right: Kategori Wisata (40%) */}
         <div className="lg:col-span-2 bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between">
-          <div className="flex items-center justify-between mb-5">
+          <div className="flex items-start justify-between gap-2 mb-4">
             <div>
               <div className="flex items-center gap-2">
-                <Compass className="w-5 h-5 text-indigo-600" />
+                <Tag className="w-5 h-5 text-violet-600" />
                 <h3 className="text-base sm:text-lg font-bold font-[Sora] text-slate-900 tracking-tight">Kategori Wisata</h3>
               </div>
               <p className="text-slate-500 text-xs mt-0.5">3 Kategori Objek Wisata</p>
             </div>
             <button 
               onClick={() => navigate('/wisata')}
-              className="text-xs font-semibold text-blue-600 hover:text-blue-700 hover:underline"
+              className="text-xs font-semibold text-blue-600 hover:text-blue-700 inline-flex items-center gap-1 shrink-0 group"
             >
-              Lihat Detail
+              <span>Lihat Detail</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </button>
           </div>
 
-          <div className="space-y-4 my-auto">
-            {/* Alam */}
-            <div>
-              <div className="flex justify-between items-center text-xs mb-1.5">
-                <span className="font-bold text-slate-700 flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-                  Wisata Alam
-                </span>
-                <span className="font-bold text-slate-900">
-                  {kategoriCounts.Alam} Destinasi ({stats.wisata > 0 ? Math.round((kategoriCounts.Alam / stats.wisata) * 100) : 0}%)
-                </span>
-              </div>
-              <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-emerald-500 rounded-full transition-all duration-500" 
-                  style={{ width: `${stats.wisata > 0 ? (kategoriCounts.Alam / stats.wisata) * 100 : 0}%` }}
-                ></div>
-              </div>
-            </div>
+          {(() => {
+            const donutData = [
+              { name: 'Wisata Alam', count: kategoriCounts.Alam, color: '#1a6eff', dotClass: 'bg-[#1a6eff]' },
+              { name: 'Wisata Budaya', count: kategoriCounts.Budaya, color: '#4fd1a5', dotClass: 'bg-[#4fd1a5]' },
+              { name: 'Wisata Sejarah', count: kategoriCounts.Sejarah, color: '#a855f7', dotClass: 'bg-[#a855f7]' },
+            ]
+            const hasData = stats.wisata > 0
+            return (
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-5 my-auto py-2">
+                <div className="relative w-40 h-40 shrink-0">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={hasData ? donutData : [{ name: 'Kosong', count: 1, color: '#e2e8f0' }]}
+                        dataKey="count"
+                        nameKey="name"
+                        cx="50%"
+                        cy="50%"
+                        innerRadius={48}
+                        outerRadius={74}
+                        startAngle={90}
+                        endAngle={-270}
+                        stroke="none"
+                        isAnimationActive={false}
+                      >
+                        {(hasData ? donutData : [{ color: '#e2e8f0' }]).map((entry, idx) => (
+                          <Cell key={idx} fill={entry.color} />
+                        ))}
+                      </Pie>
+                      {hasData && (
+                        <Tooltip
+                          formatter={(val, name) => [`${val} Destinasi`, name]}
+                          contentStyle={{ borderRadius: '10px', border: '1px solid #e2e8f0', fontSize: '12px' }}
+                        />
+                      )}
+                    </PieChart>
+                  </ResponsiveContainer>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                    <span className="text-2xl font-bold font-[Sora] text-slate-900 leading-none">{stats.wisata}</span>
+                    <span className="text-[11px] font-medium text-slate-500 mt-1">Total</span>
+                  </div>
+                </div>
 
-            {/* Budaya */}
-            <div>
-              <div className="flex justify-between items-center text-xs mb-1.5">
-                <span className="font-bold text-slate-700 flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
-                  Wisata Budaya
-                </span>
-                <span className="font-bold text-slate-900">
-                  {kategoriCounts.Budaya} Destinasi ({stats.wisata > 0 ? Math.round((kategoriCounts.Budaya / stats.wisata) * 100) : 0}%)
-                </span>
+                <div className="w-full flex-1 space-y-3.5">
+                  {donutData.map((item) => {
+                    const pct = stats.wisata > 0 ? Math.round((item.count / stats.wisata) * 100) : 0
+                    return (
+                      <div key={item.name} className="flex items-center justify-between gap-3 text-xs">
+                        <span className="font-medium text-slate-700 flex items-center gap-2 truncate">
+                          <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${item.dotClass}`} />
+                          <span className="truncate">{item.name}</span>
+                        </span>
+                        <span className="font-bold text-slate-900 whitespace-nowrap shrink-0">
+                          {item.count} ({pct}%)
+                        </span>
+                      </div>
+                    )
+                  })}
+                </div>
               </div>
-              <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-amber-500 rounded-full transition-all duration-500" 
-                  style={{ width: `${stats.wisata > 0 ? (kategoriCounts.Budaya / stats.wisata) * 100 : 0}%` }}
-                ></div>
-              </div>
-            </div>
-
-            {/* Sejarah */}
-            <div>
-              <div className="flex justify-between items-center text-xs mb-1.5">
-                <span className="font-bold text-slate-700 flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
-                  Wisata Sejarah
-                </span>
-                <span className="font-bold text-slate-900">
-                  {kategoriCounts.Sejarah} Destinasi ({stats.wisata > 0 ? Math.round((kategoriCounts.Sejarah / stats.wisata) * 100) : 0}%)
-                </span>
-              </div>
-              <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-purple-500 rounded-full transition-all duration-500" 
-                  style={{ width: `${stats.wisata > 0 ? (kategoriCounts.Sejarah / stats.wisata) * 100 : 0}%` }}
-                ></div>
-              </div>
-            </div>
-          </div>
-
-          <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 mt-2">
-            <span>Total Cakupan Wisata:</span>
-            <span className="font-bold text-slate-800">{stats.wisata} Tempat Wisata</span>
-          </div>
+            )
+          })()}
         </div>
 
       </div>
