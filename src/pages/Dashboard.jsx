@@ -253,16 +253,16 @@ export default function Dashboard() {
             <div 
               key={s.label} 
               onClick={() => navigate(s.path)}
-              className={`relative overflow-hidden bg-white rounded-2xl p-3.5 sm:p-4 border border-slate-200/80 shadow-xs flex items-center gap-3 hover:border-blue-400 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group ${isLastOdd ? 'col-span-2 sm:col-span-1' : ''}`}
+              className={`relative overflow-hidden bg-white rounded-2xl p-3.5 sm:p-4 border border-slate-200/80 shadow-xs flex flex-col sm:flex-row items-start sm:items-center gap-2.5 sm:gap-3 hover:border-blue-400 hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group ${isLastOdd ? 'col-span-2 sm:col-span-1' : ''}`}
               title={`Buka ${s.label}`}
             >
               <div className={`p-1.5 rounded-full shrink-0 ${s.ringBg} group-hover:scale-105 transition-transform`}>
-                <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-white shadow-md ${s.circleBg}`}>
+                <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-white shadow-md ${s.circleBg}`}>
                   <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
               </div>
 
-              <div className="min-w-0 flex-1 relative z-10">
+              <div className="min-w-0 w-full sm:flex-1 relative z-10 pr-12 sm:pr-0">
                 <span className="text-[11px] sm:text-xs font-medium text-slate-500 block group-hover:text-blue-600 transition-colors truncate">
                   {s.label}
                 </span>
@@ -281,7 +281,7 @@ export default function Dashboard() {
               {/* Subtle Decorative Sparkline */}
               <svg
                 viewBox="0 0 72 32"
-                className="w-14 sm:w-16 h-8 absolute bottom-1 right-1.5 opacity-80 pointer-events-none"
+                className="w-12 sm:w-16 h-7 sm:h-8 absolute bottom-1.5 right-2 opacity-75 pointer-events-none"
                 fill="none"
               >
                 <defs>
@@ -311,7 +311,7 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
         
         {/* Left: Trend Chart (60%) */}
-        <div className="lg:col-span-3 bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between">
+        <div className="lg:col-span-3 bg-white rounded-2xl p-4 sm:p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between">
           <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 mb-6">
             <div>
               <div className="flex items-center gap-2">
@@ -357,7 +357,7 @@ export default function Dashboard() {
         </div>
 
         {/* Right: Kategori Wisata (40%) */}
-        <div className="lg:col-span-2 bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between">
+        <div className="lg:col-span-2 bg-white rounded-2xl p-4 sm:p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between">
           <div className="flex items-start justify-between gap-2 mb-4">
             <div>
               <div className="flex items-center gap-2">
@@ -449,7 +449,7 @@ export default function Dashboard() {
         
         {/* Left Column: Recent Reviews (60%) */}
         <div className="lg:col-span-3 bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden flex flex-col h-full">
-          <div className="p-5 sm:p-6 border-b border-slate-100 flex justify-between items-center gap-3 bg-gradient-to-r from-blue-50/70 via-slate-50/40 to-white">
+          <div className="p-4 sm:p-6 border-b border-slate-100 flex flex-wrap justify-between items-center gap-3 bg-gradient-to-r from-blue-50/70 via-slate-50/40 to-white">
             <div className="flex items-center gap-3 min-w-0">
               <div className="w-10 h-10 rounded-xl bg-blue-100/80 text-blue-600 flex items-center justify-center shrink-0">
                 <MessageSquare className="w-5 h-5" />
@@ -479,7 +479,7 @@ export default function Dashboard() {
                   const avatarColor = getAvatarColor(review.wisatawan?.nama_wisatawan || 'Anonim')
                   return (
                   <div key={review.id_review} className="p-4 sm:p-5 hover:bg-slate-50/70 transition-colors cursor-pointer group/item">
-                    <div className="flex items-start justify-between gap-3 mb-2.5">
+                    <div className="flex flex-wrap sm:flex-nowrap items-start justify-between gap-2.5 mb-2.5">
                       <div className="flex items-start gap-3 min-w-0">
                         <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm shrink-0 ${isAnonim ? 'bg-slate-100 text-slate-400 border border-slate-200' : avatarColor}`}>
                           {isAnonim ? <User className="w-5 h-5" /> : review.wisatawan.nama_wisatawan.charAt(0).toUpperCase()}
@@ -521,7 +521,7 @@ export default function Dashboard() {
 
         {/* Right Column: New Wisatawan (40%) */}
         <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden flex flex-col h-full">
-          <div className="p-5 sm:p-6 border-b border-slate-100 flex justify-between items-center gap-3 bg-gradient-to-r from-blue-50/70 via-slate-50/40 to-white">
+          <div className="p-4 sm:p-6 border-b border-slate-100 flex flex-wrap justify-between items-center gap-3 bg-gradient-to-r from-blue-50/70 via-slate-50/40 to-white">
             <div className="flex items-center gap-3 min-w-0">
               <div className="w-10 h-10 rounded-xl bg-blue-100/80 text-blue-600 flex items-center justify-center shrink-0">
                 <Users className="w-5 h-5" />
