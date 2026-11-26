@@ -357,7 +357,7 @@ export default function Dashboard() {
         </div>
 
         {/* Right: Kategori Wisata (40%) */}
-        <div className="lg:col-span-2 bg-white rounded-2xl p-4 sm:p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between">
+        <div className="lg:col-span-2 bg-white rounded-2xl p-4 sm:p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between overflow-hidden">
           <div className="flex items-start justify-between gap-2 mb-4">
             <div>
               <div className="flex items-center gap-2">
@@ -383,8 +383,8 @@ export default function Dashboard() {
             ]
             const hasData = stats.wisata > 0
             return (
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-5 my-auto py-2">
-                <div className="relative w-40 h-40 shrink-0">
+              <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row items-center justify-between gap-4 my-auto py-2">
+                <div className="relative w-36 h-36 shrink-0">
                   <div className="absolute inset-0 z-0 flex flex-col items-center justify-center pointer-events-none">
                     <span className="text-2xl font-bold font-[Sora] text-slate-900 leading-none">{stats.wisata}</span>
                     <span className="text-[11px] font-medium text-slate-500 mt-1">Total</span>
@@ -398,8 +398,8 @@ export default function Dashboard() {
                           nameKey="name"
                           cx="50%"
                           cy="50%"
-                          innerRadius={48}
-                          outerRadius={74}
+                          innerRadius="62%"
+                          outerRadius="92%"
                           startAngle={90}
                           endAngle={-270}
                           stroke="none"
@@ -421,12 +421,12 @@ export default function Dashboard() {
                   </div>
                 </div>
 
-                <div className="w-full flex-1 space-y-3.5">
+                <div className="w-full min-w-0 flex-1 space-y-3">
                   {donutData.map((item) => {
                     const pct = stats.wisata > 0 ? Math.round((item.count / stats.wisata) * 100) : 0
                     return (
-                      <div key={item.name} className="flex items-center justify-between gap-3 text-xs">
-                        <span className="font-medium text-slate-700 flex items-center gap-2 truncate">
+                      <div key={item.name} className="flex items-center justify-between gap-2 text-xs">
+                        <span className="font-medium text-slate-700 flex items-center gap-2 min-w-0">
                           <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${item.dotClass}`} />
                           <span className="truncate">{item.name}</span>
                         </span>
